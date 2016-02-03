@@ -1,6 +1,6 @@
 <?php
 
-namespace Backoffice\Entity;
+namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,9 +22,9 @@ class UsersAddress
     private $id;
 
     /**
-     * @var \Backoffice\Entity\Users
+     * @var \Application\Entity\Users
      *
-     * @ORM\ManyToOne(targetEntity="Backoffice\Entity\Users")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -32,9 +32,9 @@ class UsersAddress
     private $user;
 
     /**
-     * @var \Backoffice\Entity\Address
+     * @var \Application\Entity\Address
      *
-     * @ORM\ManyToOne(targetEntity="Backoffice\Entity\Address")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Address")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="address_id", referencedColumnName="id")
      * })

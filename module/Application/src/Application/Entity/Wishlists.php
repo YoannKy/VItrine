@@ -1,6 +1,6 @@
 <?php
 
-namespace Backoffice\Entity;
+namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,9 +29,9 @@ class Wishlists
     private $orderList;
 
     /**
-     * @var \Backoffice\Entity\Users
+     * @var \Application\Entity\Users
      *
-     * @ORM\ManyToOne(targetEntity="Backoffice\Entity\Users")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -39,9 +39,9 @@ class Wishlists
     private $user;
 
     /**
-     * @var \Backoffice\Entity\Products
+     * @var \Application\Entity\Products
      *
-     * @ORM\ManyToOne(targetEntity="Backoffice\Entity\Products")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Products")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      * })
