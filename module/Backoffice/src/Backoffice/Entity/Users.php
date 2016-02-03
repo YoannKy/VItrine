@@ -36,6 +36,13 @@ class Users
     private $mail;
 
     /**
+     * @var binary
+     *
+     * @ORM\Column(name="password", type="binary", nullable=false)
+     */
+    private $password;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=60, nullable=true)

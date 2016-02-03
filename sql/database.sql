@@ -59,3 +59,12 @@ CREATE TABLE Products_categories (
 	FOREIGN KEY (category_id) REFERENCES Categories(id),
 	FOREIGN KEY (product_id) REFERENCES Products(id)
 );          
+
+CREATE TABLE Users_address(
+	  id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id SMALLINT UNSIGNED NOT NULL,
+	address_id SMALLINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id),
+	FOREIGN KEY (user_id) REFERENCES Users(id),
+	FOREIGN KEY (address_id) REFERENCES Address(id)
+);

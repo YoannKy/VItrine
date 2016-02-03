@@ -1,7 +1,14 @@
 <?php
 return array(
-    'db' => array(
-        'user' => 'root',
-        'password' => 'root',
-    )
-);
+  'doctrine' => array(
+        'connection' => array(
+            'orm_default' => array(
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+                    'user'     => 'root',
+                    'password'   => 'root',
+                )
+            )
+        )
+    ),
+); 
