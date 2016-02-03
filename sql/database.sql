@@ -1,5 +1,12 @@
+DROP DATABASE IF EXISTS vitrine;
 CREATE DATABASE vitrine;
 use vitrine;
+DROP TABLE IF EXISTS Products;
+DROP TABLE  IF EXISTS Categories;
+DROP TABLE  IF EXISTS Users;
+DROP TABLE  IF EXISTS Address;
+DROP TABLE  IF EXISTS Wishlists;
+DROP TABLE  IF EXISTS Products_categories;
 CREATE TABLE Products (
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(40) NOT NULL,
@@ -33,7 +40,7 @@ CREATE TABLE Address (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE Wichlists (
+CREATE TABLE Wishlists (
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     product_id SMALLINT UNSIGNED NOT NULL ,
 	user_id SMALLINT UNSIGNED NOT NULL ,
@@ -50,4 +57,4 @@ CREATE TABLE Products_categories (
     PRIMARY KEY (id),
 	FOREIGN KEY (category_id) REFERENCES Categories(id),
 	FOREIGN KEY (product_id) REFERENCES Products(id)
-);
+);          
