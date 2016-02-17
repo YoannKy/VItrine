@@ -1,0 +1,34 @@
+<div id="main-menu" role="navigation">
+	<div id="main-menu-inner">
+		<div class="menu-content top" id="menu-content-demo">
+			<div>
+				<div class="text-bg"><span class="text-slim">Welcome,</span> <span class="text-semibold">user</span></div>
+				<div class="btn-group">
+					<a href="/bo/user/{{Auth::user()->id}}/edit" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
+					<a href="/bo/logout" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
+				</div>
+			</div>
+		</div>
+		<ul class="navigation">
+				<li>
+					<a href="/bo"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Dashboard</span></a>
+				</li>
+				<li class="mm-dropdown">
+					<a href="#"><i class="menu-icon fa fa-question-circle"></i><span class="mm-text">Catalogue</span></a>
+					<ul>
+						<li>
+							<a tabindex="-1" href="/bo/quizz/create"><i class="menu-icon fa fa-plus"></i><span class="mm-text">Créer un catalogue</span></a>
+						</li>
+					</ul>
+				</li>
+			<li>
+			</li>
+			<li>
+				<a href="/bo/user"><i class="menu-icon fa fa-user"></i><span class="mm-text">Liste des administrateurs</span></a>
+			</li>
+		</ul> <!-- / .navigation -->
+		<div class="menu-content">
+			<a href="/bo/quizz/create" class="btn btn-primary btn-block btn-outline dark">Créer un catalogue</a>
+		</div>
+	</div> <!-- / #main-menu-inner -->
+</div> <!-- / #main-menu -->

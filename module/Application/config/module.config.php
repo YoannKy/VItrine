@@ -6,13 +6,13 @@
  * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-return array(
+return array(   
     'router' => array(
         'routes' => array(
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/application',
+                    'route' => '/',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action' => 'index'
@@ -101,7 +101,7 @@ return array(
             __NAMESPACE__ . '_driver' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
+                'paths' =>array(__DIR__ . '/../src/Application/Entity')
             ),
             'orm_default' => array(
                 'drivers' => array(

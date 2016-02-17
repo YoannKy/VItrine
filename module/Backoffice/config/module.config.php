@@ -8,26 +8,12 @@ namespace Backoffice;
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 return array(
-   'doctrine' => array(
-        'driver' => array(
-            __NAMESPACE__ . '_driver' => array(
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
-            ),
-            'orm_default' => array(
-                'drivers' => array(
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
-                )
-            )
-        )
-    ),  
     'router' => array(
         'routes' => array(
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/',
+                    'route' => '/bo',
                     'defaults' => array(
                         'controller' => 'Backoffice\Controller\Index',
                         'action' => 'index'
@@ -41,7 +27,7 @@ return array(
             'backoffice' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/backoffice',
+                    'route' => '/bo',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Backoffice\Controller',
                         'controller' => 'Index',
@@ -111,18 +97,18 @@ return array(
             'routes' => array()
         )
     ),
-    'doctrine' => array(
-        'driver' => array(
-            __NAMESPACE__ . '_driver' => array(
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
-            ),
-            'orm_default' => array(
-                'drivers' => array(
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
-                )
-            )
-        )
-    )
+//     'doctrine' => array(
+//         'driver' => array(
+//             __NAMESPACE__ . '_driver' => array(
+//                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+//                 'cache' => 'array',
+//                 'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
+//             ),
+//             'orm_default' => array(
+//                 'drivers' => array(
+//                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+//                 )
+//             )
+//         )
+//     )
 );

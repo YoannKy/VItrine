@@ -49,5 +49,86 @@ class Wishlists
     private $product;
 
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set orderList
+     *
+     * @param string $orderList
+     *
+     * @return Wishlists
+     */
+    public function setOrderList($orderList)
+    {
+        $this->orderList = $orderList;
+
+        return $this;
+    }
+
+    /**
+     * Get orderList
+     *
+     * @return string
+     */
+    public function getOrderList()
+    {
+        return $this->orderList;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\Entity\Users $user
+     *
+     * @return Wishlists
+     */
+    public function setUser(\Application\Entity\Users $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\Entity\Users
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \Application\Entity\Products $product
+     *
+     * @return Wishlists
+     */
+    public function setProduct(\Application\Entity\Products $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \Application\Entity\Products
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+}

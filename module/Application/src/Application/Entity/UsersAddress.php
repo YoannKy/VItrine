@@ -42,5 +42,62 @@ class UsersAddress
     private $address;
 
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\Entity\Users $user
+     *
+     * @return UsersAddress
+     */
+    public function setUser(\Application\Entity\Users $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\Entity\Users
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set address
+     *
+     * @param \Application\Entity\Address $address
+     *
+     * @return UsersAddress
+     */
+    public function setAddress(\Application\Entity\Address $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \Application\Entity\Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+}

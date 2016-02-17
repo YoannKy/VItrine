@@ -42,5 +42,62 @@ class ProductsCategories
     private $product;
 
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Application\Entity\Categories $category
+     *
+     * @return ProductsCategories
+     */
+    public function setCategory(\Application\Entity\Categories $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Application\Entity\Categories
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \Application\Entity\Products $product
+     *
+     * @return ProductsCategories
+     */
+    public function setProduct(\Application\Entity\Products $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \Application\Entity\Products
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+}
