@@ -10,46 +10,21 @@ namespace Backoffice;
 return array(
     'router' => array(
         'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+            'category' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route' => '/bo',
-                    'defaults' => array(
-                        'controller' => 'Backoffice\Controller\Index',
-                        'action' => 'index'
-                    )
-                )
-            ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'backoffice' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/bo',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Backoffice\Controller',
-                        'controller' => 'Index',
-                        'action' => 'index'
-                    )
+                    'route'    => '/bo/category[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(    
+                        'controller' => 'backoffice-category',
+                        'action'     => 'index',
+                    ),
                 ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
-                            ),
-                            'defaults' => array()
-                        )
-                    )
-                )
-            )
-        )
+            ),
+        ),
     ),
     'service_manager' => array(
         'abstract_factories' => array(
@@ -71,9 +46,12 @@ return array(
         )
     ),
     'controllers' => array(
-        'invokables' => array(
-            'Backoffice\Controller\Index' => 'Backoffice\Controller\IndexController'
-        )
+//         'invokables' => array(
+//             'Backoffice\Controller\Category' => 'Backoffice\Controller\CategoryController'
+//         ),
+        'factories' => array(
+            'backoffice-category' => 'Backoffice\Factory\CategoryControllerFactory',
+        ),
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
@@ -97,18 +75,18 @@ return array(
             'routes' => array()
         )
     ),
-//     'doctrine' => array(
-//         'driver' => array(
-//             __NAMESPACE__ . '_driver' => array(
-//                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-//                 'cache' => 'array',
-//                 'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
-//             ),
-//             'orm_default' => array(
-//                 'drivers' => array(
-//                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
-//                 )
-//             )
-//         )
-//     )
+    'doctrine' => array(
+        'driver' => array(
+              'Application_driver' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../../Application/src/Application/Entity')
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    'Application\Entity' => 'Application_driver'
+                )
+            )
+        )
+    )
 );

@@ -36,4 +36,17 @@ class Module
             )
         );
     }
+    
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'category_service' => 'Application\Factory\CategoryServiceFactory',
+                'AddressService' => 'Application\Factory\AddressServiceFactory',
+                'ProductService' => 'Application\Factory\ProductServiceFactory',
+                'UserService' => 'Application\Factory\UserServiceFactory',
+                'WishlistService' => 'Application\Factory\Whishlist.php',
+            )
+        );
+    }
 }
