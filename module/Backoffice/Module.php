@@ -29,4 +29,13 @@ class Module
             )
         );
     }
+    
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'category_form' => 'Backoffice\Factory\CategoryFormFactory.php',
+                )
+            );
+    }
 }

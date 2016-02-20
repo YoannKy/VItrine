@@ -24,6 +24,21 @@ return array(
                     ),
                 ),
             ),
+            'product' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/bo/category/:id_category/product[/:action][/:id]',
+                    'constraints' => array(
+                        'id_category' => '[0-9]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'backoffice-product',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -46,11 +61,9 @@ return array(
         )
     ),
     'controllers' => array(
-//         'invokables' => array(
-//             'Backoffice\Controller\Category' => 'Backoffice\Controller\CategoryController'
-//         ),
         'factories' => array(
             'backoffice-category' => 'Backoffice\Factory\CategoryControllerFactory',
+            'backoffice-product' => 'Backoffice\Factory\ProductControllerFactory',
         ),
     ),
     'view_manager' => array(
@@ -86,7 +99,15 @@ return array(
                 'drivers' => array(
                     'Application\Entity' => 'Application_driver'
                 )
-            )
-        )
-    )
+            )   
+        ),
+        'authentication' => array(
+            'orm_default' => array(
+                'object_manager' => 'Doctrine\ORM\EntityManager',
+                'identity_class' => 'Application\Entity\Users',
+                'identity_property' => 'email',
+                'credential_property' => 'password',
+            ),
+        ),
+    )   
 );

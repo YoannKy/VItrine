@@ -18,7 +18,15 @@ class CategoryController extends AbstractActionController
     /**
      * @var CaService
      */
-    private $categoryService;
+    protected $categoryService;
+    
+//     protected $categoryFormService;
+     
+    public function __construct($categoryService/*, $categoryFormService*/)
+    {
+        $this->categoryService = $categoryService;
+//         $this->categoryFormService = $categoryFormService; 
+    }
     
     public function setCategoryService($categoryService)
     {
@@ -28,6 +36,25 @@ class CategoryController extends AbstractActionController
     public function getCategoryService()
     {
         return $this->categoryService;
+    }
+    
+//     public function getCategoryFormService(){
+//         return $this->categoryFormService;
+//     }
+
+    protected function checkIfCategoryExists($categoryId){
+    
+        $id = (int) $categoryId;
+        if (!$id) {
+            return false;
+        }
+    
+        $category = $this->getCategoryService()->find($id);
+    
+        if($category == null){
+            return false;
+        }
+        return $category;
     }
     
     public function indexAction()
@@ -58,39 +85,30 @@ class CategoryController extends AbstractActionController
     
     public function editAction()
     {
-        
-        $id = (int) $this->params()->fromRoute('id');
-        if (!$id) {
+        $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id'));
+        if($category){
+            $form  = new CategoryForm();
+            $form->bind($category);
+            $form->get('submit')->setAttribute('value', 'Edit');
+            $request = $this->getRequest();
+            if ($request->isPost()) {
+                $form->setData($request->getPost());
+                if ($form->isValid()) {
+                    $this->getCategoryService()->persist($category);
+                    // Redirect to list of categories
+                    return $this->redirect()->toRoute('category');
+                }
+            }
+            
+            return array(
+                'id' => $category->getId(),
+                'form' => $form,
+            );
+        }
+        else {
             return $this->redirect()->toRoute('category', array(
                 'action' => 'new',
             ));
         }
-    
-        try {
-            $category = $this->getCategoryService()->find($id);
-        }
-        catch (\Exception $ex) {
-            return $this->redirect()->toRoute('category', array(
-                'action' => 'index'
-            ));
-        }
-    
-        $form  = new CategoryForm();
-        $form->bind($category);
-        $form->get('submit')->setAttribute('value', 'Edit');
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $form->setData($request->getPost());
-            if ($form->isValid()) {
-                $this->getCategoryService()->persist($category);
-                // Redirect to list of categories
-                return $this->redirect()->toRoute('category');
-            }
-        }
-    
-        return array(
-            'id' => $id,
-            'form' => $form,
-        );
     }
 }
