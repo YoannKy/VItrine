@@ -10,15 +10,19 @@
     <!-- Right side -->
     <div class="signin-form">
             <div class="signin-text">
-            	<span>Connectez vous à votre compte	</span>
+            	<span>Créer un nouveau compte	</span>
             </div> <!-- / .signin-text -->
     	    <!-- Form --> 
     	    <?php   $form = $this->form; ?>
-        	<?php $form->setAttribute('action', $this->url('login', array('action' => 'index','id'=>$this->id,)));
+        	<?php $form->setAttribute('action', $this->url('login', array('action' => 'new', )));
 	           $form->prepare();?>
 			<?php  echo $this->form()->openTag($form);?>
-		 <?php echo $this->formInput($form->get('id')); ?>
+		 	<?php echo $this->formInput($form->get('id')); ?>
             <div class="form-group w-icon">
+				<?php echo $this->formInput($form->get('name'));?>	
+			 	<span class="fa fa-user signin-form-icon"></span>		
+        	</div>
+        	 <div class="form-group w-icon">
 				<?php echo $this->formInput($form->get('mail'));?>	
 			 	<span class="fa fa-user signin-form-icon"></span>		
         	</div>
@@ -26,15 +30,10 @@
             	<?php echo $this->formInput($form->get('password'));?>				
                 <span class="fa fa-lock signin-form-icon"></span>
             </div> <!-- / Password -->
-            
             <div class="form-actions">
-            	<input type="submit" value="SE CONNECTER" class="signin-btn bg-primary">
+            	<input type="submit" value="S'inscrire" class="signin-btn bg-primary">
             </div> <!-- / .form-actions -->
-        </form>
-        <!-- / Form -->
+      	  <!-- / Form -->
         <!-- Right side -->
      </div>
-</div>
-<div class="not-a-member">
-	Pas de compte ? <a href="<?php echo $this->url('login', array('action' => 'new'));?>">Créer un nouveau compte</a>
 </div>

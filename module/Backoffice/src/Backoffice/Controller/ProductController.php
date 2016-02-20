@@ -141,7 +141,6 @@ class ProductController extends AbstractActionController
                 $categoryService =  $this->getCategoryService();
                 $form->setData($request->getPost());
                 if ($form->isValid()) {
-                    $category->getProducts()->add($product);
                     $productService->persist($product);
                     $categoryService->persist($category);
                     // Redirect to list of products

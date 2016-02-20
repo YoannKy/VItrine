@@ -5,7 +5,7 @@ use Zend\Form\Form;
 // use Zend\InputFilter\InputFilter;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
-class AuthentificationForm extends Form
+class UserForm extends Form
 {
 
     public function __construct()
@@ -30,6 +30,17 @@ class AuthentificationForm extends Form
                 'required' => 'required',
                 'class'=>'form-control input-lg',
                 'placeholder'=>'user@gmail.com'
+            ),
+        ));
+        
+
+        $this->add(array(
+            'name' => 'name',
+            'attributes' => array(
+                'type' => 'text',
+                'required' => 'required',
+                'class'=>'form-control input-lg',
+                'placeholder'=>'nom'
             ),
         ));
         

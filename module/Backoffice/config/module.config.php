@@ -101,13 +101,5 @@ return array(
                 )
             )   
         ),
-        'authentication' => array(
-            'orm_default' => array(
-                'object_manager' => 'Doctrine\ORM\EntityManager',
-                'identity_class' => 'Application\Entity\Users',
-                'identity_property' => 'email',
-                'credential_property' => 'password',
-            ),
-        ),
     )   
 );

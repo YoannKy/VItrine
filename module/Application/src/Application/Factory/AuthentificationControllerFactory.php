@@ -13,10 +13,9 @@ class AuthentificationControllerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $controllerManager)
     {
         
-//        $authentificationService =  $controllerManager->getServiceLocator()->get('authentification_service');
-       
+        $authentificationService =  $controllerManager->getServiceLocator()->get('authentification_service');
         $userService = $controllerManager->getServiceLocator()->get('user_service');
-        $controller = new AuthentificationController($userService);
+        $controller = new AuthentificationController($authentificationService,$userService);
         return $controller;
     }
 }
