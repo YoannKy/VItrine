@@ -1,5 +1,5 @@
 <?php
-namespace Backoffice;
+namespace Frontoffice;
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -8,28 +8,27 @@ namespace Backoffice;
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 return array(
-   'doctrine' => array(
-        'driver' => array(
-            __NAMESPACE__ . '_driver' => array(
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
-            ),
-            'orm_default' => array(
-                'drivers' => array(
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
-                )
-            )
-        )
-    ),  
     'router' => array(
         'routes' => array(
+            'product' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/product/[:id]',
+                    'constraints' => array(
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'frontoffice-product',
+                        'action' => 'product'
+                    )
+                )
+            ),
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/bo',
+                    'route' => '/fo',
                     'defaults' => array(
-                        'controller' => 'Backoffice\Controller\Index',
+                        'controller' => 'Frontoffice\Controller\Index',
                         'action' => 'index'
                     )
                 )
@@ -38,30 +37,17 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'backoffice' => array(
+            'frontoffice' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/bo',
+                    'route' => '/fo',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Backoffice\Controller',
+                        '__NAMESPACE__' => 'Frontoffice\Controller',
                         'controller' => 'Index',
                         'action' => 'index'
                     )
                 ),
                 'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
-                            ),
-                            'defaults' => array()
-                        )
-                    )
-                )
             )
         )
     ),
@@ -85,9 +71,9 @@ return array(
         )
     ),
     'controllers' => array(
-        'invokables' => array(
-            'Backoffice\Controller\Index' => 'Backoffice\Controller\IndexController'
-        )
+        'factories' => array(
+            'frontoffice-product' => 'Frontoffice\Factory\ProductControllerFactory',
+        ),
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
@@ -97,7 +83,7 @@ return array(
         'exception_template' => 'error/index',
         'template_map' => array(
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
-            'backoffice/index/index' => __DIR__ . '/../view/backoffice/index/index.phtml',
+            'frontoffice/index/index' => __DIR__ . '/../view/frontoffice/index/index.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml'
         ),
@@ -113,14 +99,14 @@ return array(
     ),
     'doctrine' => array(
         'driver' => array(
-            __NAMESPACE__ . '_driver' => array(
+            'Application_driver' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
+                'paths' => array(__DIR__ . '/../../Application/src/Application/Entity')
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                    'Application\Entity' => 'Application_driver'
                 )
             )
         )
