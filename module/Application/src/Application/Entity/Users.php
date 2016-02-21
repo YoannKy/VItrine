@@ -50,7 +50,14 @@ class Users
     private $status;
 
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity="Products")
+     * @ORM\JoinTable(name="Whishlists",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}
+     *      )
+     */
+    private $products;
     /**
      * Get id
      *
@@ -155,5 +162,28 @@ class Users
     public function getStatus()
     {
         return $this->status;
+    }
+    
+    /**
+     * Add product
+     *
+     * @param \Application\Entity\Products $product
+     * @return Category
+     */
+    public function addProduct(\Application\Entity\Products $product)
+    {
+        $this->product[] = $product;
+    
+        return $this;
+    }
+    
+    /**
+     * Get product
+     *
+     * @return \Application\Entity\Products
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }
