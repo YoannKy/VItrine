@@ -79,10 +79,10 @@ return array(
             'frontoffice-category' => 'Frontoffice\Factory\CategoryControllerFactory',
         ),
     ),
-    'view_helpers' => array(
-        'invokables'=> array(
-            'PaginationHelper' => 'Application\Helper\PaginationHelper')
-    ),
+//     'view_helpers' => array(
+//         'invokables'=> array(
+//             'PaginationHelper' => 'Application\Helper\PaginationHelper')
+//     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,

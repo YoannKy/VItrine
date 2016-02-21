@@ -4,7 +4,6 @@
 	<strong>Pas de catégories !</strong> Aucune catégories pour le moment.
 </div>
 <?php else:?>
-<?php $paging = $this->paginationHelper($this->paginator, $this->page, '/category/', 1);?>
 <div class="table-info">
 		<div class="table-header">
 			<div class="table-caption">
@@ -32,5 +31,17 @@
 		 <?php endforeach; ?>
 	</tbody>
 </table>
-<?php echo $paging; ?>
+<?php echo $this->paginationControl(
+     // the paginator object
+     $this->categories,
+     // the scrolling style
+     'sliding',
+     // the partial to use to render the control
+     'partial/paginator.phtml',
+     // the route to link to when a user clicks a control link
+     array(
+         'route' => 'fo-category'
+     )
+ );
+?>
 <?php endif;?>
