@@ -45,6 +45,7 @@ class CategoryController extends AbstractActionController
     protected function checkIfCategoryExists($categoryId){
     
         $id = (int) $categoryId;
+ 
         if (!$id) {
             return false;
         }

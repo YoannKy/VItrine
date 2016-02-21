@@ -11,10 +11,10 @@ namespace Application;
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\ModuleManager;
 
 class Module
 {
-
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager = $e->getApplication()->getEventManager();
@@ -47,20 +47,25 @@ class Module
         );
     }
     
+    public function init(ModuleManager $mm)
+    {
+        $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function($e) {
+            $e->getTarget()->layout('login/layout');
+        });
+    }
+    
     public function getServiceConfig()
     {
         return array(
             'factories' => array(
-                'authentification_service' => function($serviceManager) {
-                    // If you are using DoctrineORMModule:
-                    return $serviceManager->get('doctrine.authenticationservice.orm_default');
-                },
+                'authentification_service' => 'Application\Factory\AuthentificationServiceFactory',
                 'category_service' => 'Application\Factory\CategoryServiceFactory',
-                'AddressService' => 'Application\Factory\AddressServiceFactory',
+                'address_service' => 'Application\Factory\AddressServiceFactory',
                 'product_service' => 'Application\Factory\ProductServiceFactory',
                 'user_service' => 'Application\Factory\UserServiceFactory',
-                'WishlistService' => 'Application\Factory\Whishlist.php',
+                'wishlist_service' => 'Application\Factory\Whishlist.php',
             )
         );
     }
+  
 }

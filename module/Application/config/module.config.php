@@ -12,10 +12,9 @@ return array(
             'login' => array(
                 'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/login[/:action][/:id]',
+                    'route'    => '/login[/:action]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
                     ),
                     'defaults' => array(    
                         'controller' => 'application-authentification',
@@ -88,7 +87,7 @@ return array(
             'orm_default' => array(
                 'object_manager' => 'Doctrine\ORM\EntityManager',
                 'identity_class' => 'Application\Entity\Users',
-                'identity_property' => 'email',
+                'identity_property' => 'mail',
                 'credential_property' => 'password',
             ),
         ),

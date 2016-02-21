@@ -23,15 +23,20 @@ class DoctrineEntityService implements ServiceManagerAwareInterface,EventManager
      */
     public function findAll()
     {
-        $entities = "";
-        $this->getEventManager()->trigger(__FUNCTION__ . '.pre', $this, array('entities' => $entities));
         $entities = $this->getEntityRepository()->findAll();
-        $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('entities' => $entities));
         return $entities;
     }
 
     public function find($id) {
         return $this->getEntityRepository()->find($id);
+    }
+    
+    public function findBy($array) {
+        return $this->getEntityRepository()->findBy($array);
+    }
+    
+    public function findOneBy($array) {
+        return $this->getEntityRepository()->findOneBy($array);
     }
 
     public function findByQuery(\Closure $query)
