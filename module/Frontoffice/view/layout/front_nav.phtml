@@ -4,7 +4,7 @@
 			<div class="navbar-header">
 
 				<!-- Logo -->
-				<a href="index.html" class="navbar-brand">
+				<a href="/" class="navbar-brand">
 					Vitrine
 				</a>
 
@@ -17,7 +17,7 @@
 				<div>
 					<ul class="nav navbar-nav">
 						<li>
-							<a href="#">Home</a>
+							<a href="/">Home</a>
 						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Catégories</a>
@@ -32,14 +32,26 @@
 
 					<div class="right clearfix">
 						<ul class="nav navbar-nav pull-right right-navbar-nav">
+						<?php if($this->layout()->authService->hasIdentity()):;?>
 						<li class="dropdown">
-								<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
-									<span>John Doe</span>
-								</a>
-								<ul class="dropdown-menu">
-									<li><a href="login/logout"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
-								</ul>
-							</li>
+							<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
+								<span><?php echo $this->layout()->authService->getIdentity()->getName();?></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="/login/logout"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+							</ul>
+						</li>
+						<?php else:;?>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
+								<span>Pas connecté</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="/login"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Se connecter</a></li>
+							</ul>
+						</li>
+						<?php endif;?>
+					
 						</ul> <!-- / .navbar-nav -->
 					</div> <!-- / .right -->
 				</div>

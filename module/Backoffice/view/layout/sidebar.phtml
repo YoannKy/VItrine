@@ -2,25 +2,18 @@
 	<div id="main-menu-inner">
 		<div class="menu-content top" id="menu-content-demo">
 			<div>
-				<div class="text-bg"><span class="text-slim">Welcome,</span> <span class="text-semibold">user</span></div>
+				<div class="text-bg"><span class="text-slim">Welcome,</span> <span class="text-semibold"><?php echo $this->layout()->authService->getIdentity()->getName();?></span></div>
 				<div class="btn-group">
-					<a href="/bo/user/{{Auth::user()->id}}/edit" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
-					<a href="/bo/logout" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
+					<a href="/login/logout" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
 				</div>
 			</div>
 		</div>
 		<ul class="navigation">
-				<li>
-					<a href="/bo"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Dashboard</span></a>
-				</li>
 				<li class="mm-dropdown">
 					<a href="#"><i class="menu-icon fa fa-question-circle"></i><span class="mm-text">Catégorie</span></a>
 					<ul>
 						<li>
 							<a tabindex="-1" href="/bo/category/new"><i class="menu-icon fa fa-plus"></i><span class="mm-text">Créer un catégorie</span></a>
-						</li>
-						<li>
-							<a tabindex="-1" href="/bo/category/index"><i class="menu-icon fa fa-th-list"></i><span class="mm-text">Lister les catégories</span></a>
 						</li>
 					</ul>
 				</li>

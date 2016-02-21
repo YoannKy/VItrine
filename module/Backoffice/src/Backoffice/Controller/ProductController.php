@@ -90,14 +90,22 @@ class ProductController extends AbstractActionController
     
     public function indexAction()
     {   
-      
-        $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
-        if($category)   {
-            $products = $category->getProducts();
-             return array( 'products' => $products);
+        $acessControlService = $this->getAccessControlService();
+        $module = $this->getModuleName();
+        if($acessControlService->checkPermission($module)){
+            $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
+            if($category)   {
+                $products = $category->getProducts();
+                 return array( 'products' => $products);
+            } else {
+                return $this->redirect()->toRoute('category', array(
+                    'action' => 'index',
+                ));
+            }
         } else {
-            return $this->redirect()->toRoute('category', array(
-                'action' => 'index',
+            return $this->redirect()->toRoute('home', array(
+                'controller' => 'frontoffice-product',
+                'action' =>  'last'
             ));
         }
     }
@@ -137,6 +145,11 @@ class ProductController extends AbstractActionController
                     'action' => 'index',
                 ));
             }
+        } else {
+            return $this->redirect()->toRoute('home', array(
+                'controller' => 'frontoffice-product',
+                'action' =>  'last'
+            ));
         }
     }
     

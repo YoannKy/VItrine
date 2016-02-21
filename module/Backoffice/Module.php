@@ -14,6 +14,16 @@ use Zend\Mvc\MvcEvent;
 
 class Module
 {
+    
+    public function onBootstrap($e) {
+    
+        $serviceManager = $e->getApplication()->getServiceManager();
+        $viewModel = $e->getApplication()->getMvcEvent()->getViewModel();
+        $authService = $serviceManager->get('authentification_service');
+        $myService = $serviceManager->get('category_service');
+        $viewModel->categories = $myService->findAll();
+        $viewModel->authService = $authService;
+    }
 
     public function getConfig()
     {

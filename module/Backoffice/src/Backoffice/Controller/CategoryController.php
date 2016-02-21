@@ -82,7 +82,10 @@ class CategoryController extends AbstractActionController
             $categories = $this->getCategoryService()->findAll();            
             return array( 'categories' => $categories);
         } else {
-            return "not authorized";
+             return $this->redirect()->toRoute('home', array(
+                        'controller' => 'frontoffice-product',
+                        'action' =>  'last'
+                    ));
         }
         
     }
@@ -108,7 +111,10 @@ class CategoryController extends AbstractActionController
             }
             return array('form' => $form);
         } else {
-            return "not authorized";
+           return $this->redirect()->toRoute('home', array(
+                        'controller' => 'frontoffice-product',
+                        'action' =>  'last'
+                    ));
         }
     }
     
@@ -144,7 +150,10 @@ class CategoryController extends AbstractActionController
                 ));
             }
         } else {
-            return "no authorized";
+           return $this->redirect()->toRoute('home', array(
+                        'controller' => 'frontoffice-product',
+                        'action' =>  'last'
+                    ));
         }
     }
 }

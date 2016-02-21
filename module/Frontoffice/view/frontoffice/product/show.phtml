@@ -1,9 +1,9 @@
-<div class="col-sm-6">
+<div class="col-sm-offset-4 col-sm-8">
     <h1><?php echo $this->product->getName() ?></h1>
     <h2><?php echo $this->product->getPrice() ?> $</h2>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="home">
-            <h2>Product Description</h2>
+            <h2>Description du produit</h2>
             <p><?php echo $this->product->getLongDesc() ?></p>
         </div>
     </div>
@@ -11,18 +11,10 @@
 	<?php $form->setAttribute('action', $this->url('fo-product', array('action' => 'show','id_category'=> $this->id_category, 'id' =>$this->product->getId())));
 	$form->prepare();?>
     <?php  echo $this->form()->openTag($this->form)?>
-    <div class="panel-heading">
-        <span class="panel-title">Ajouter le produit à ma liste de souhaits	:</span>
-    </div>
-    <div class="panel-body no-padding-hr">
-        <div class="form-group no-margin-hr panel-padding-h no-padding-t no-border-t">
-                <div class="col-sm-8">
-                   <?php echo $this->formInput($this->form->get('product_id'));?>
-                </div>
-        </div>
-        <div class="panel-footer text-right">
-				<button class="btn btn-primary">Ajouter</button>
-			</div>
-        <?php echo $this->form()->closeTag($this->form); ?>
+    <div class="panel-heading col-sm-4">
+        <span class="panel-title">Ajouter ce produit à ma liste de souhaits	:</span>
+	    <?php echo $this->formInput($this->form->get('product_id'));?>
+     		<button class="btn btn-primary">Ajouter</button>
+		<?php echo $this->form()->closeTag($this->form); ?>
     </div>
 </div>

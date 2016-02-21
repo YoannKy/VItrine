@@ -38,6 +38,6 @@ class CategoryController extends AbstractActionController
         if($page){
             $paginator->setCurrentPageNumber($page);
         }
-        return array( 'categories' => $paginator,'page'=>$page);    
+        return array( 'categories' => $paginator);    
     }
 }

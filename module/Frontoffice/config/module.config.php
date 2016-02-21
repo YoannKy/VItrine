@@ -43,12 +43,9 @@ return array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route' => '/',
-                    'constraints' => array(
-                        'page'     => '[0-9]+',
-                    ),
                     'defaults' => array(
-                        'controller' => 'frontoffice-category',
-                        'action' => 'index'
+                        'controller' => 'frontoffice-product',
+                        'action' => 'last'
                     )
                 )
             ),
