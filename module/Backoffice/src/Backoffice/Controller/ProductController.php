@@ -58,6 +58,12 @@ class ProductController extends AbstractActionController
         return $this->accessControlService;
     }
     
+
+    public function getModuleName(){
+        return  explode("-",$this->getEvent()->getRouteMatch()->getParam('controller'))[0];
+    }
+    
+    
     protected function checkIfCategoryExists($categoryId){
         
         $id = (int) $categoryId;
@@ -96,7 +102,7 @@ class ProductController extends AbstractActionController
             $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
             if($category)   {
                 $products = $category->getProducts();
-                 return array( 'products' => $products);
+                 return array( 'products' => $products,'id_category'=> $this->params()->fromRoute('id_category'));
             } else {
                 return $this->redirect()->toRoute('category', array(
                     'action' => 'index',
@@ -161,13 +167,14 @@ class ProductController extends AbstractActionController
             $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
             $product =$this->checkIfProductExists( $this->params()->fromRoute('id'));
             if($category and $product) {
+                $productService =  $this->getProductService();
+                $categoryService =  $this->getCategoryService();
+                $product = $productService->find($this->params()->fromRoute('id'));
                 $form  = new ProductForm();
                 $form->bind($product);
                 $form->get('submit')->setAttribute('value', 'Edit');
                 $request = $this->getRequest();
                 if ($request->isPost()) {
-                    $productService =  $this->getProductService();
-                    $categoryService =  $this->getCategoryService();
                     $form->setData($request->getPost());
                     if ($form->isValid()) {
                         $productService->persist($product);

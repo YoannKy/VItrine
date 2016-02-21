@@ -27,7 +27,7 @@
 			<td><?php echo $product->getPrice();?></td>
 			<td><?php echo $product->getLongDesc();?></td>
 			<td><?php echo $product->getShortDesc();?></td>
-			<td>Pas de produits</td>
+			<td><a href ="<?php echo $this->url('product', array('action' => 'edit','id_category'=>$this->id_category,'id'=>$product->getId(),))?>">Editer</a></td>
 		</tr>
 		 <?php endforeach; ?>
 	</tbody>
