@@ -1,0 +1,45 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+        <?php echo $this->headTitle('Front office Vitrine ')?>
+
+        <?php
+        
+echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')?>
+
+        <!-- Le styles -->
+        <?php
+        
+echo $this->headLink(array(
+            'rel' => 'shortcut icon',
+            'type' => 'image/vnd.microsoft.icon',
+            'href' => $this->basePath() . '/img/favicon.ico'
+        ))
+            ->prependStylesheet($this->basePath('css/pages.min.css'))
+            ->prependStylesheet($this->basePath('css/themes.min.css'))
+            ->prependStylesheet($this->basePath('css/widget.min.css'))
+            ->prependStylesheet($this->basePath('css/pixel-admin.min.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))?>
+
+        <!-- Scripts -->
+        <?php
+        
+echo $this->headScript()
+            ->prependFile($this->basePath('js/pixel-admin.min.js'))
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'));
+        ?>
+
+    </head>
+<body class="theme-default main-menu-animated">
+<!-- Include nav view -->
+<?php echo $this->partial('nav.phtml')?>
+<!-- /4. $MAIN_MENU -->
+	<div id="content-wrapper">
+<?php echo $this->content;?>
+</body>
+</html>
