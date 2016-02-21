@@ -11,7 +11,7 @@ class CategoryForm extends Form
     public function __construct()
     {
         parent::__construct();
-        $this->setName('category')
+        $this->setName('login')
         ->setHydrator(new ClassMethodsHydrator(false))
 //         ->setInputFilter(new InputFilter())
         ->setAttribute('method', 'post');
@@ -25,14 +25,19 @@ class CategoryForm extends Form
         
         $this->add(array(
             'name' => 'name',
-            'options' => array(
-                'label' => 'nom de la catégorie',
-                'label_attributes'=>array(
-                    'class'=>'col-sm-4 control-label'
-                )
-            ),
             'attributes' => array(
                 'type' => 'text',
+                'label' => 'nom',
+                'required' => 'required',
+                'class'=>'form-control'
+            ),
+        ));
+        
+        $this->add(array(
+            'name' => 'name',
+            'attributes' => array(
+                'type' => 'text',
+                'label' => 'nom',
                 'required' => 'required',
                 'class'=>'form-control'
             ),

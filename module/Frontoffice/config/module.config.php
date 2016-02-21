@@ -23,6 +23,19 @@ return array(
                     )
                 )
             ),
+            'category' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/category/[:id]',
+                    'constraints' => array(
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'frontoffice-category',
+                        'action' => 'products'
+                    )
+                )
+            ),
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -58,7 +71,7 @@ return array(
         ),
         'aliases' => array(
             'translator' => 'MvcTranslator'
-        )
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',
@@ -73,6 +86,7 @@ return array(
     'controllers' => array(
         'factories' => array(
             'frontoffice-product' => 'Frontoffice\Factory\ProductControllerFactory',
+            'frontoffice-category' => 'Frontoffice\Factory\CategoryControllerFactory',
         ),
     ),
     'view_manager' => array(

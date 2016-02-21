@@ -38,12 +38,14 @@ class Products
     /**
      * @var string
      *
+     *
      * @ORM\Column(name="short_desc", type="string", length=60, nullable=true)
      */
     private $shortDesc;
 
     /**
      * @var string
+     *
      *
      * @ORM\Column(name="long_desc", type="text", length=65535, nullable=true)
      */
@@ -62,8 +64,7 @@ class Products
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
-
-
+    
 
     /**
      * Get id

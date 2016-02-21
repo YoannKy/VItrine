@@ -28,7 +28,15 @@ class Categories
      */
     private $name;
 
-
+     /**
+     * @ORM\ManyToMany(targetEntity="Products")
+     * @ORM\JoinTable(name="Products_categories",
+     *      joinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}
+     *      )
+     */
+    private $products;
+    
 
     /**
      * Get id
@@ -63,4 +71,37 @@ class Categories
     {
         return $this->name;
     }
-}
+    
+    /**
+     * Add product
+     *
+     * @param \Application\Entity\Products $product
+     * @return Category
+     */
+    public function addProduct(\Application\Entity\Products $product)
+    {
+        $this->product[] = $product;
+    
+        return $this;
+    }
+    
+    /**
+    * Get product
+    *
+    * @return \Application\Entity\Products
+    */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+    
+    /**
+     * Remove product
+     *
+     * @param \Store\FrontendBundle\Entity\Product $product
+     */
+    public function removeProduct(\Application\Entity\Products $product)
+    {
+        $this->product->removeElement($product);
+    }
+}   

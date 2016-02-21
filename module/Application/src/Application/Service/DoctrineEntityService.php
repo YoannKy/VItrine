@@ -23,6 +23,7 @@ class DoctrineEntityService implements ServiceManagerAwareInterface,EventManager
      */
     public function findAll()
     {
+        $entities = "";
         $this->getEventManager()->trigger(__FUNCTION__ . '.pre', $this, array('entities' => $entities));
         $entities = $this->getEntityRepository()->findAll();
         $this->getEventManager()->trigger(__FUNCTION__ . '.post', $this, array('entities' => $entities));

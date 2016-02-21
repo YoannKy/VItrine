@@ -1,43 +1,57 @@
 <?php
-namespace Backoffice\Form;
+namespace Frontoffice\Form;
 
 use Zend\Form\Form;
 // use Zend\InputFilter\InputFilter;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
-class CategoryForm extends Form
+class WishListForm extends Form
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->setName('category')
+        $this->setName('product')
         ->setHydrator(new ClassMethodsHydrator(false))
 //         ->setInputFilter(new InputFilter())
         ->setAttribute('method', 'post');
         
         $this->add(array(
-            'name' => 'id',
+            'name' => 'product_id',
             'attributes' => array(
                 'type' => 'hidden',
             ),
         ));
-        
+
         $this->add(array(
-            'name' => 'name',
+            'name' => 'order_list',
             'options' => array(
-                'label' => 'nom de la catégorie',
-                'label_attributes'=>array(
+                'label' => '',
+                 'label_attributes'=>array(
                     'class'=>'col-sm-4 control-label'
-                )
+                 )
             ),
-            'attributes' => array(
+            'attributes'=> array(
                 'type' => 'text',
                 'required' => 'required',
                 'class'=>'form-control'
             ),
         ));
-      
+
+        $this->add(array(
+            'name' => 'price',
+            'options' => array(
+                'label' => 'Prix du produit',
+                 'label_attributes'=>array(
+                    'class'=>'col-sm-4 control-label'
+                 )
+            ),
+            'attributes' => array(
+                'type' => 'int',
+                'required' => 'required',
+                'class'=>'form-control'
+            ),
+        ));
         
         $this->add(array(
             'name' => 'submit',

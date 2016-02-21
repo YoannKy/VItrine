@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alberish
- * Date: 20/02/16
- * Time: 19:10
- */
 
 namespace Frontoffice\Controller;
 
@@ -16,26 +10,24 @@ class CategoryController extends AbstractActionController
     /**
      * @var CaService
      */
-    private $productService;
+    private $categoryService;
 
-    public function setProductService($productService)
+
+    public function setCategoryService($categoryService)
     {
-        $this->productService = $productService;
+        $this->categoryService = $categoryService;
     }
 
-    public function getProductService()
+    public function getCategoryService()
     {
-        return $this->productService;
+        return $this->categoryService;
     }
 
 
-    public function categoryAction()
+    public function productsAction()
     {
-        return new ViewModel();
+        $category = $this->getCategoryService()->find($this->params('id'));
+        return array('category' => $category);
     }
 
-    public function productAction() {
-        $product = $this->getProductService()->find($this->params('id'));
-        return array( 'product' => $product);
-    }
 }

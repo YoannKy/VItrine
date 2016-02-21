@@ -51,10 +51,14 @@ class Module
     {
         return array(
             'factories' => array(
+                'authentification_service' => function($serviceManager) {
+                    // If you are using DoctrineORMModule:
+                    return $serviceManager->get('doctrine.authenticationservice.orm_default');
+                },
                 'category_service' => 'Application\Factory\CategoryServiceFactory',
                 'AddressService' => 'Application\Factory\AddressServiceFactory',
-                'ProductService' => 'Application\Factory\ProductServiceFactory',
-                'UserService' => 'Application\Factory\UserServiceFactory',
+                'product_service' => 'Application\Factory\ProductServiceFactory',
+                'user_service' => 'Application\Factory\UserServiceFactory',
                 'WishlistService' => 'Application\Factory\Whishlist.php',
             )
         );

@@ -9,46 +9,21 @@
 return array(   
     'router' => array(
         'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+            'login' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route' => '/',
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
-                        'action' => 'index'
-                    )
-                )
-            ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'application' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/application',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Application\Controller',
-                        'controller' => 'Index',
-                        'action' => 'index'
-                    )
+                    'route'    => '/login[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(    
+                        'controller' => 'application-authentification',
+                        'action'     => 'index',
+                    ),
                 ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
-                            ),
-                            'defaults' => array()
-                        )
-                    )
-                )
-            )
-        )
+            ),
+        ),
     ),
     'service_manager' => array(
         'abstract_factories' => array(
@@ -70,9 +45,9 @@ return array(
         )
     ),
     'controllers' => array(
-        'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
-        )
+        'factories' => array(
+            'application-authentification' => 'Application\Factory\AuthentificationControllerFactory',
+        ),
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
@@ -95,5 +70,27 @@ return array(
         'router' => array(
             'routes' => array()
         )
+    ),
+    'doctrine' => array(
+        'driver' => array(
+            'Application_driver' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../../Application/src/Application/Entity')
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    'Application\Entity' => 'Application_driver'
+                )
+            )
+        ),
+        'authentication' => array(
+            'orm_default' => array(
+                'object_manager' => 'Doctrine\ORM\EntityManager',
+                'identity_class' => 'Application\Entity\Users',
+                'identity_property' => 'email',
+                'credential_property' => 'password',
+            ),
+        ),
     )
 );
