@@ -1,63 +1,43 @@
-<h1><?php echo $this->translate('An error occurred') ?></h1>
-<h2><?php echo $this->message ?></h2>
+<body class="page-404">
 
-<?php if (isset($this->display_exceptions) && $this->display_exceptions): ?>
+<script>var init = [];</script>
 
-<?php if(isset($this->exception) && $this->exception instanceof Exception): ?>
-<hr />
-<h2><?php echo $this->translate('Additional information') ?>:</h2>
-<h3><?php echo get_class($this->exception); ?></h3>
-<dl>
-	<dt><?php echo $this->translate('File') ?>:</dt>
-	<dd>
-		<pre class="prettyprint linenums"><?php echo $this->exception->getFile() ?>:<?php echo $this->exception->getLine() ?></pre>
-	</dd>
-	<dt><?php echo $this->translate('Message') ?>:</dt>
-	<dd>
-		<pre class="prettyprint linenums"><?php echo $this->escapeHtml($this->exception->getMessage()) ?></pre>
-	</dd>
-	<dt><?php echo $this->translate('Stack trace') ?>:</dt>
-	<dd>
-		<pre class="prettyprint linenums"><?php echo $this->escapeHtml($this->exception->getTraceAsString()) ?></pre>
-	</dd>
-</dl>
-<?php
-        $e = $this->exception->getPrevious();
-        if ($e) :
-            ?>
-<hr />
-<h2><?php echo $this->translate('Previous exceptions') ?>:</h2>
-<ul class="unstyled">
-    <?php while($e) : ?>
-    <li>
-		<h3><?php echo get_class($e); ?></h3>
-		<dl>
-			<dt><?php echo $this->translate('File') ?>:</dt>
-			<dd>
-				<pre class="prettyprint linenums"><?php echo $e->getFile() ?>:<?php echo $e->getLine() ?></pre>
-			</dd>
-			<dt><?php echo $this->translate('Message') ?>:</dt>
-			<dd>
-				<pre class="prettyprint linenums"><?php echo $this->escapeHtml($e->getMessage()) ?></pre>
-			</dd>
-			<dt><?php echo $this->translate('Stack trace') ?>:</dt>
-			<dd>
-				<pre class="prettyprint linenums"><?php echo $this->escapeHtml($e->getTraceAsString()) ?></pre>
-			</dd>
-		</dl>
-	</li>
-    <?php
-                $e = $e->getPrevious();
-            endwhile
-            ;
-            ?>
-</ul>
-<?php endif; ?>
+	<div class="header">
+		<a href="index.html" class="logo">
+			<div class="demo-logo"><img src="assets/demo/logo-big.png" alt="" style="margin-top: -4px;"></div>&nbsp;
+			<strong>Pixel</strong>Admin
+		</a> <!-- / .logo -->
+	</div> <!-- / .header -->
 
-<?php else: ?>
+	<div class="error-code">404</div>
 
-<h3><?php echo $this->translate('No Exception available') ?></h3>
+	<div class="error-text">
+		<span class="oops">OOPS!</span><br>
+		<span class="hr"></span>
+		<br>
+		SOMETHING WENT WRONG, OR THAT PAGE DOESN'T EXIST... YET
+	</div> <!-- / .error-text -->
 
-<?php
-endif;?>
-<?php endif ?>
+
+<!-- Get jQuery from Google CDN -->
+<!--[if !IE]> -->
+	<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js">'+"<"+"/script>"); </script><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- <![endif]-->
+<!--[if lte IE 9]>
+	<script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
+<![endif]-->
+
+
+<!-- Pixel Admin's javascripts -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/pixel-admin.min.js"></script>
+
+<script type="text/javascript">
+	init.push(function () {
+		// Javascript code here
+	})
+	window.PixelAdmin.start(init);
+</script>
+
+
+<div id="small-screen-width-point" style="position:absolute;top:-10000px;width:10px;height:10px;background:#fff;"></div><div id="tablet-screen-width-point" style="position:absolute;top:-10000px;width:10px;height:10px;background:#fff;"></div></body>

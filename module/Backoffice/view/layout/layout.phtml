@@ -38,12 +38,12 @@ echo $this->headScript()
 <body class="theme-default main-menu-animated">
 <div id="main-wrapper">
 <!-- Include nav view -->
-<?php echo $this->partial('nav.phtml');?>	
+<?php echo $this->partial('back_nav.phtml');?>	
 <!-- Include sidebar view -->
 <?php echo $this->partial('sidebar.phtml');?>	
 <!-- /4. $MAIN_MENU -->
 	<div id="content-wrapper">
-<?php echo $this->partial('breadcrumb.phtml');?>	
+<?php echo $this->partial('back_breadcrumb.phtml');?>	
 	<div id="main-menu-bg"></div>
 <?php echo $this->content;?>	
 </div> <!-- / #main-wrapper -->

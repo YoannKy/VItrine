@@ -25,12 +25,12 @@ class ProductController extends AbstractActionController
 
     public function categoryAction()
     {
-        $products = $this->getProductService()->find($this->params('category'));
+        $products = $this->getProductService()->find($this->params('id'));
     }
 
     public function productAction() {
 
-        $product = $this->getProductService()->find($this->params('id'));
+        $product = $this->getProductService()->find($this->params('id_category'));
         return array( 'product' => $product);
     }
 }

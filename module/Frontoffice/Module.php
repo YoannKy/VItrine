@@ -13,11 +13,18 @@ class Module
         $viewModel = $e->getApplication()->getMvcEvent()->getViewModel();
 
         $myService = $serviceManager->get('category_service');
-        $viewModel->categories = $myService->getEntityRepository();
+        $viewModel->categories = $myService->findAll();
     }
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+    
+    public function init(ModuleManager $mm)
+    {
+        $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function($e) {
+            $e->getTarget()->layout('layout/front_layout');
+        });
     }
 
     public function getAutoloaderConfig()

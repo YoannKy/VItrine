@@ -39,29 +39,13 @@ return array(
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/fo',
+                    'route' => '/',
                     'defaults' => array(
-                        'controller' => 'Frontoffice\Controller\Index',
+                        'controller' => 'frontoffice-category',
                         'action' => 'index'
                     )
                 )
             ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'frontoffice' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/fo',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Frontoffice\Controller',
-                        'controller' => 'Index',
-                        'action' => 'index'
-                    )
-                ),
-                'may_terminate' => true,
-            )
         )
     ),
     'service_manager' => array(
@@ -96,10 +80,10 @@ return array(
         'not_found_template' => 'error/404',
         'exception_template' => 'error/index',
         'template_map' => array(
-            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/front_layout'     => __DIR__ . '/../view/layout/layout.phtml',
             'frontoffice/index/index' => __DIR__ . '/../view/frontoffice/index/index.phtml',
-            'error/404' => __DIR__ . '/../view/error/404.phtml',
-            'error/index' => __DIR__ . '/../view/error/index.phtml'
+            'error/front_404' => __DIR__ . '/../view/error/404.phtml',
+            'error/front_index' => __DIR__ . '/../view/error/index.phtml'
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view'
