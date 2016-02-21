@@ -1,0 +1,33 @@
+<?php if(count($this->products) == 0):?>
+<div class="alert alert-info">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Pas de produits  !</strong> Aucune produits n'est repertorié dans ce catalogue pour le moment.
+</div>
+<?php else:?>
+<div class="table-info">
+		<div class="table-header">
+			<div class="table-caption">
+				Liste des produits
+			</div>
+		</div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Nom du produit</th>
+					<th>Prix</th>
+					<th>description longue</th>
+					<th>description courte</th>
+				</tr>
+			</thead>
+			<tbody>
+		<?php foreach($this->products as $product):;?>
+		<tr>
+			<td><?php echo $product->getName();?></td>
+			<td><?php echo $product->getPrice();?></td>
+			<td><?php echo $product->getLongDesc();?></td>
+			<td><?php echo $product->getShortDesc();?></td>
+		</tr>
+		 <?php endforeach; ?>
+	</tbody>
+</table>
+<?php endif;?>

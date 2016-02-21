@@ -10,8 +10,13 @@ class ProductControllerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $controllerManager)
     {
         $controller = new ProductController();
-        $entityService = $controllerManager->getServiceLocator()->get('product_service');
-        $controller->setProductService($entityService);
+        $producService = $controllerManager->getServiceLocator()->get('product_service');
+        $controller->setProductService($producService);
+        $categoryService = $controllerManager->getServiceLocator()->get('category_service');
+        $controller->setCategoryService($categoryService);
+        $userService = $controllerManager->getServiceLocator()->get('user_service');
+        $controller->setUserService($userService);
+        
         return $controller;
     }
 }

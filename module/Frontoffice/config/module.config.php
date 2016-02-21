@@ -10,29 +10,31 @@ namespace Frontoffice;
 return array(
     'router' => array(
         'routes' => array(
-            'product' => array(
+            'fo-product' => array(
                 'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/product/[:id]',
+                    'route'    => '/category/:id_category/product[/:action][/:id]',
                     'constraints' => array(
+                        'id_category' => '[0-9]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
                         'controller' => 'frontoffice-product',
-                        'action' => 'product'
-                    )
-                )
+                        'action'     => 'index',
+                    ),
+                ),
             ),
-            'category' => array(
+            'fo-category' => array(
                 'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/category/[:id]',
-                    'constraints' => array(
+                    'route'    => '/category',
                         'id'     => '[0-9]+',
+                    'constraints' => array(
                     ),
                     'defaults' => array(
                         'controller' => 'frontoffice-category',
-                        'action' => 'products'
+                        'action' => 'index'
                     )
                 )
             ),

@@ -24,7 +24,7 @@
 							<ul class="dropdown-menu">
 							<?php foreach ($this->layout()->categories as $category) : ?>
 								<li>
-									<a href="<?php echo $this->url('product', array('action' => 'index','id_category'=>$category->getId()));?>"><?php echo $category->getName()?></a>
+									<a href="<?php echo $this->url('fo-product', array('action' => 'index','id_category'=>$category->getId()));?>"><?php echo $category->getName()?></a>
 								</li>
 							<?php endforeach?>	</ul>
 						</li>

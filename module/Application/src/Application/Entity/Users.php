@@ -52,7 +52,7 @@ class Users
 
     /**
      * @ORM\ManyToMany(targetEntity="Products")
-     * @ORM\JoinTable(name="Whishlists",
+     * @ORM\JoinTable(name="Wishlists",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}
      *      )

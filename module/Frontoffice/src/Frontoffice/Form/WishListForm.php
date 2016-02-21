@@ -22,36 +22,6 @@ class WishListForm extends Form
                 'type' => 'hidden',
             ),
         ));
-
-        $this->add(array(
-            'name' => 'order_list',
-            'options' => array(
-                'label' => '',
-                 'label_attributes'=>array(
-                    'class'=>'col-sm-4 control-label'
-                 )
-            ),
-            'attributes'=> array(
-                'type' => 'text',
-                'required' => 'required',
-                'class'=>'form-control'
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'price',
-            'options' => array(
-                'label' => 'Prix du produit',
-                 'label_attributes'=>array(
-                    'class'=>'col-sm-4 control-label'
-                 )
-            ),
-            'attributes' => array(
-                'type' => 'int',
-                'required' => 'required',
-                'class'=>'form-control'
-            ),
-        ));
         
         $this->add(array(
             'name' => 'submit',

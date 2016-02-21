@@ -28,14 +28,5 @@ class CategoryController extends AbstractActionController
         $categories = $this->getCategoryService()->findAll();
         
         return array( 'categories' => $categories);
-    }
-
-    public function productsAction()
-    {
-        $id = $this->params()->fromRoute('id');
-        die();
-        $category = $this->getCategoryService()->find($id);
-        return array('category' => $category);
-    }
-
+    }  
 }
