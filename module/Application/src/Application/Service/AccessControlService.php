@@ -40,6 +40,8 @@ class AccessControlService
                 return false;
             } else if ($status == 'admin' && $module == "backoffice"){
                 return true;
+            } else if ($module =="frontoffice"){
+                return true;
             }
         } else {
             return false;

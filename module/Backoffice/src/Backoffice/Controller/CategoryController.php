@@ -49,7 +49,7 @@ class CategoryController extends AbstractActionController
     }
     
     
-    public function getAcessControlService()
+    public function getAccessControlService()
     {
         return $this->accessControlService;
     }
@@ -76,7 +76,7 @@ class CategoryController extends AbstractActionController
     
     public function indexAction()
     { 
-        $acessControlService = $this->getAcessControlService();
+        $acessControlService = $this->getAccessControlService();
         $module = $this->getModuleName();
         if($acessControlService->checkPermission($module)){
             $categories = $this->getCategoryService()->findAll();            
@@ -89,7 +89,7 @@ class CategoryController extends AbstractActionController
     
     public function newAction()
     {
-        $acessControlService = $this->getAcessControlService();
+        $acessControlService = $this->getAccessControlService();
         $module = $this->getModuleName();
         if($acessControlService->checkPermission($module)){
             $form = new CategoryForm();
@@ -114,7 +114,7 @@ class CategoryController extends AbstractActionController
     
     public function editAction()
     {
-        $acessControlService = $this->getAcessControlService();
+        $acessControlService = $this->getAccessControlService();
         $module = $this->getModuleName();
         if($acessControlService->checkPermission($module)){
         

@@ -9,7 +9,6 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Application\Form\AuthentificationForm;
 use Application\Form\UserForm;
 use Application\Entity\Users as User;
@@ -58,14 +57,11 @@ class AuthentificationController extends AbstractActionController
         if($authService->getIdentity()){
 
             $module = $this->getEvent()->getRouteMatch()->getParam('controller');
-            var_dump(explode('-',$module)[0]);
-            die();
-            return $this->redirect()->toRoute('category', array(
+           return  $this->redirect()->toRoute('fo-category', array(
                 'controller' => 'category',
                 'action' =>  'index'
             ));
         } else {
-           
             $form = new AuthentificationForm();
             $bcrypt = new Bcrypt();
             $request = $this->getRequest();
@@ -86,10 +82,17 @@ class AuthentificationController extends AbstractActionController
                     
                     $authResult = $authService->authenticate($adapter);
                     if ($authResult->isValid()) {
-                       $this->redirect()->toRoute('category', array(
-                            'controller' => 'category',
-                            'action' =>  'index'
-                        ));
+                        if($authService->getIdentity()->getStatus() == 'client'){
+                           return  $this->redirect()->toRoute('fo-category', array(
+                                'controller' => 'category',
+                                'action' =>  'index'
+                            ));
+                        } else {
+                            return $this->redirect()->toRoute('category', array(
+                                'controller' => 'category',
+                                'action' =>  'index'
+                            ));
+                        }
                     }
                 }
             }
@@ -119,4 +122,17 @@ class AuthentificationController extends AbstractActionController
         }
         return array('form' => $form);
     }
+    
+    public  function logoutAction(){
+        $authService = $this->getServiceLocator()->get('authentification_service');
+         
+        $authService->clearIdentity();
+        
+        return $this->redirect()->toRoute('login', array(
+                        'controller' => 'authentification',
+                        'action' =>  'index'
+                    ));
+    }
+        
+    
 }

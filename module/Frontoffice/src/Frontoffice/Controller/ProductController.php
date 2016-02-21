@@ -93,9 +93,7 @@ class ProductController extends AbstractActionController
         }
     }
 
-    public function showAction() {
-        
-        
+    public function showAction() { 
         $categoryExist =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
         $productExist =$this->checkIfProductExists( $this->params()->fromRoute('id'));
         $form = new WishListForm();

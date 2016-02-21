@@ -22,10 +22,13 @@ class ProductController extends AbstractActionController
     
     protected  $categoryService;
     
-    public function __construct($productService, $categoryService)
+    protected $accessControlService;
+    
+    public function __construct($productService, $categoryService, $accessControlService)
     {
         $this->productService = $productService;
         $this->categoryService = $categoryService;
+        $this->accessControlService = $accessControlService;
     }
     
     public function setCategoryService($categoryService)
@@ -47,6 +50,12 @@ class ProductController extends AbstractActionController
     public function getProductService()
     {
         return $this->productService;
+    }
+    
+
+    public function getAccessControlService()
+    {
+        return $this->accessControlService;
     }
     
     protected function checkIfCategoryExists($categoryId){
@@ -96,76 +105,84 @@ class ProductController extends AbstractActionController
     public function newAction()
     {
 
-        $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
-        if($category)   {
-            $form = new ProductForm();
-            $product = new Product();
-         
-            $form->bind($product); 
-        
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-               $productService =  $this->getProductService();
-               $categoryService =  $this->getCategoryService();
-               
-               $form->setData($request->getPost());          
-                if ($form->isValid()) {
-                    $category->getProducts()->add($product);
-                    $productService->persist($product);
-                    $categoryService->persist($category);
-                    return $this->redirect()->toRoute('product',array('id_category'=>$category->getId()));
+        $acessControlService = $this->getAccessControlService();
+        $module = $this->getModuleName();
+        if($acessControlService->checkPermission($module)){
+            $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
+            if($category)   {
+                $form = new ProductForm();
+                $product = new Product();
+             
+                $form->bind($product); 
+            
+                $request = $this->getRequest();
+                if ($request->isPost()) {
+                   $productService =  $this->getProductService();
+                   $categoryService =  $this->getCategoryService();
+                   
+                   $form->setData($request->getPost());          
+                    if ($form->isValid()) {
+                        $category->getProducts()->add($product);
+                        $productService->persist($product);
+                        $categoryService->persist($category);
+                        return $this->redirect()->toRoute('product',array('id_category'=>$category->getId()));
+                    }
                 }
+                return array(
+                    'id'=>$category->getId(),
+                    'form' => $form 
+                );
+            } else {
+                return $this->redirect()->toRoute('category', array(
+                    'action' => 'index',
+                ));
             }
-            return array(
-                'id'=>$category->getId(),
-                'form' => $form 
-            );
-        } else {
-            return $this->redirect()->toRoute('category', array(
-                'action' => 'index',
-            ));
         }
     }
     
     public function editAction()
     {
-        $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
-        $product =$this->checkIfProductExists( $this->params()->fromRoute('id'));
-        if($category and $product) {
-            $form  = new ProductForm();
-            $form->bind($product);
-            $form->get('submit')->setAttribute('value', 'Edit');
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $productService =  $this->getProductService();
-                $categoryService =  $this->getCategoryService();
-                $form->setData($request->getPost());
-                if ($form->isValid()) {
-                    $productService->persist($product);
-                    $categoryService->persist($category);
-                    // Redirect to list of products
-                    return $this->redirect()->toRoute('product', array('id_category'=>$category->getId()));
+        $acessControlService = $this->getAccessControlService();
+        $module = $this->getModuleName();
+        if($acessControlService->checkPermission($module)){
+            $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
+            $product =$this->checkIfProductExists( $this->params()->fromRoute('id'));
+            if($category and $product) {
+                $form  = new ProductForm();
+                $form->bind($product);
+                $form->get('submit')->setAttribute('value', 'Edit');
+                $request = $this->getRequest();
+                if ($request->isPost()) {
+                    $productService =  $this->getProductService();
+                    $categoryService =  $this->getCategoryService();
+                    $form->setData($request->getPost());
+                    if ($form->isValid()) {
+                        $productService->persist($product);
+                        $categoryService->persist($category);
+                        // Redirect to list of products
+                        return $this->redirect()->toRoute('product', array('id_category'=>$category->getId()));
+                    }
                 }
+                
+                return array(
+                    'id' => $product->getId(),
+                    'id_category' => $category->getId(),
+                    'form' => $form,
+                );
+                
+            } else {
+               if($category){
+                   return $this->redirect()->toRoute('product', array(
+                       'action' => 'new',
+                       'id_category'=>$category->getId(),
+                   ));
+                   
+               } else {
+                return $this->redirect()->toRoute('product', array(
+                    'action' => 'new',
+                ));
+               }
             }
-            
-            return array(
-                'id' => $product->getId(),
-                'id_category' => $category->getId(),
-                'form' => $form,
-            );
-            
-        } else {
-           if($category){
-               return $this->redirect()->toRoute('product', array(
-                   'action' => 'new',
-                   'id_category'=>$category->getId(),
-               ));
-               
-           } else {
-            return $this->redirect()->toRoute('product', array(
-                'action' => 'new',
-            ));
-           }
         }
     }
 }

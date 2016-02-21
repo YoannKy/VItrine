@@ -4,6 +4,7 @@
 	<strong>Pas de catégories !</strong> Aucune catégories pour le moment.
 </div>
 <?php else:?>
+<?php $paging = $this->paginationHelper($this->paginator, $this->page, '/category/', 1);?>
 <div class="table-info">
 		<div class="table-header">
 			<div class="table-caption">
@@ -15,7 +16,6 @@
 				<tr>
 					<th>Nom du catalogue</th>
 					<th>Produits liés</th>
-					<th>Editer</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,4 +32,5 @@
 		 <?php endforeach; ?>
 	</tbody>
 </table>
+<?php echo $paging; ?>
 <?php endif;?>

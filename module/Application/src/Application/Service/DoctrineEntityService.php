@@ -7,6 +7,10 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Zend\Paginator\Paginator;
+use DoctrineModule\Paginator\Adapter\Collection;
+
 
 class DoctrineEntityService implements ServiceManagerAwareInterface,EventManagerAwareInterface
 {
@@ -25,6 +29,12 @@ class DoctrineEntityService implements ServiceManagerAwareInterface,EventManager
     {
         $entities = $this->getEntityRepository()->findAll();
         return $entities;
+    }
+    
+    public function paginate($result){
+        $collection = new ArrayCollection($result);
+        $paginator = new Paginator(new Collection($collection));
+        return $paginator;
     }
 
     public function find($id) {

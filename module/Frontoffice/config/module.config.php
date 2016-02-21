@@ -28,9 +28,10 @@ return array(
             'fo-category' => array(
                 'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/category',
-                        'id'     => '[0-9]+',
+                    'route'    => '/category[/:page]',
                     'constraints' => array(
+                        'id'     => '[0-9]+',
+                        'page'     => '[0-9]+',    
                     ),
                     'defaults' => array(
                         'controller' => 'frontoffice-category',
@@ -42,6 +43,9 @@ return array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route' => '/',
+                    'constraints' => array(
+                        'page'     => '[0-9]+',
+                    ),
                     'defaults' => array(
                         'controller' => 'frontoffice-category',
                         'action' => 'index'
@@ -74,6 +78,10 @@ return array(
             'frontoffice-product' => 'Frontoffice\Factory\ProductControllerFactory',
             'frontoffice-category' => 'Frontoffice\Factory\CategoryControllerFactory',
         ),
+    ),
+    'view_helpers' => array(
+        'invokables'=> array(
+            'PaginationHelper' => 'Application\Helper\PaginationHelper')
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
