@@ -12,7 +12,6 @@ return array(
         'routes' => array(
             'category' => array(
                 'type'    => 'Zend\Mvc\Router\Http\Segment',
-                'priority' => 100,
                 'options' => array(
                     'route'    => '/bo/category[/:action][/:id]',
                     'constraints' => array(
@@ -27,7 +26,6 @@ return array(
             ),
             'product' => array(
                 'type'    => 'Zend\Mvc\Router\Http\Segment',
-                'priority' => 100,
                 'options' => array(
                     'route'    => '/bo/category/:id_category/product[/:action][/:id]',
                     'constraints' => array(

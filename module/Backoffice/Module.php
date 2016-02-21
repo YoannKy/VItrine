@@ -8,6 +8,7 @@
  */
 namespace Backoffice;
 
+use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
@@ -29,7 +30,14 @@ class Module
             )
         );
     }
-    
+
+    public function init(ModuleManager $mm)
+    {
+        $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function($e) {
+            $e->getTarget()->layout('layout/layout');
+        });
+    }
+
     public function getServiceConfig()
     {
         return array(
