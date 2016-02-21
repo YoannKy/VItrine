@@ -1,6 +1,5 @@
 <?php
 namespace Application\Factory;
-
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\FactoryInterface;
 

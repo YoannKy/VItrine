@@ -20,22 +20,38 @@ class CategoryController extends AbstractActionController
      */
     protected $categoryService;
     
+    protected $accessControlService;
+    
+    protected  $authentificationService;
+    
 //     protected $categoryFormService;
      
-    public function __construct($categoryService/*, $categoryFormService*/)
+    public function __construct($categoryService/*, $categoryFormService*/, $accessControlService)
     {
         $this->categoryService = $categoryService;
-//         $this->categoryFormService = $categoryFormService; 
+        
+        $this->accessControlService = $accessControlService;
+        //   $this->categoryFormService = $categoryFormService; 
     }
-    
-    public function setCategoryService($categoryService)
-    {
-        $this->categoryService = $categoryService;
-    }
-    
+
     public function getCategoryService()
     {
         return $this->categoryService;
+    }
+    
+    public function getAuthentificationService(){
+        return $this->authentificationService;
+    }
+    
+    
+    public function getModuleName(){
+        return  explode("-",$this->getEvent()->getRouteMatch()->getParam('controller'))[0];
+    }
+    
+    
+    public function getAcessControlService()
+    {
+        return $this->accessControlService;
     }
     
 //     public function getCategoryFormService(){
@@ -60,56 +76,75 @@ class CategoryController extends AbstractActionController
     
     public function indexAction()
     { 
-        $categories = $this->getCategoryService()->findAll();
-
-        return array( 'categories' => $categories);
+        $acessControlService = $this->getAcessControlService();
+        $module = $this->getModuleName();
+        if($acessControlService->checkPermission($module)){
+            $categories = $this->getCategoryService()->findAll();            
+            return array( 'categories' => $categories);
+        } else {
+            return "not authorized";
+        }
+        
     }
     
     public function newAction()
     {
-        $form = new CategoryForm();
-        $category = new Category();
-     
-        $form->bind($category); 
-    
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-           $entityService =  $this->getCategoryService();
-           $form->setData($request->getPost());          
-            if ($form->isValid()) {
-                $entityService->persist($category);
-                return $this->redirect()->toRoute('category');
+        $acessControlService = $this->getAcessControlService();
+        $module = $this->getModuleName();
+        if($acessControlService->checkPermission($module)){
+            $form = new CategoryForm();
+            $category = new Category();
+         
+            $form->bind($category); 
+        
+            $request = $this->getRequest();
+            if ($request->isPost()) {
+               $entityService =  $this->getCategoryService();
+               $form->setData($request->getPost());          
+                if ($form->isValid()) {
+                    $entityService->persist($category);
+                    return $this->redirect()->toRoute('category');
+                }
             }
+            return array('form' => $form);
+        } else {
+            return "not authorized";
         }
-        return array('form' => $form);
     }
     
     public function editAction()
     {
-        $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id'));
-        if($category){
-            $form  = new CategoryForm();
-            $form->bind($category);
-            $form->get('submit')->setAttribute('value', 'Edit');
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $form->setData($request->getPost());
-                if ($form->isValid()) {
-                    $this->getCategoryService()->persist($category);
-                    // Redirect to list of categories
-                    return $this->redirect()->toRoute('category');
+        $acessControlService = $this->getAcessControlService();
+        $module = $this->getModuleName();
+        if($acessControlService->checkPermission($module)){
+        
+            $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id'));
+            if($category){
+                $form  = new CategoryForm();
+                $form->bind($category);
+                $form->get('submit')->setAttribute('value', 'Edit');
+                $request = $this->getRequest();
+                if ($request->isPost()) {
+                    $form->setData($request->getPost());
+                    if ($form->isValid()) {
+                        $this->getCategoryService()->persist($category);
+                        // Redirect to list of categories
+                        return $this->redirect()->toRoute('category');
+                    }
                 }
+                
+                return array(
+                    'id' => $category->getId(),
+                    'form' => $form,
+                );
             }
-            
-            return array(
-                'id' => $category->getId(),
-                'form' => $form,
-            );
-        }
-        else {
-            return $this->redirect()->toRoute('category', array(
-                'action' => 'new',
-            ));
+            else {
+                return $this->redirect()->toRoute('category', array(
+                    'action' => 'new',
+                ));
+            }
+        } else {
+            return "no authorized";
         }
     }
 }

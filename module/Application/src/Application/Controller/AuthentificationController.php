@@ -53,35 +53,49 @@ class AuthentificationController extends AbstractActionController
     
     public function indexAction()
     {
-        $form = new AuthentificationForm();
-        $bcrypt = new Bcrypt();
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $data = $this->getRequest()->getPost();
-            $authService = $this->getServiceLocator()->get('authentification_service');
-            $form->setData($request->getPost());
-            if($form->isValid()){    
-                $mail = $form->get('mail')->getValue();
-                $password = $form->get('password')->getValue();
-                
-                $entityService = $this->getUserService();
-                $user = $entityService->findOneBy(array('mail'=>$mail));
-                $hashedPassword = $bcrypt->verify($password,$user->getPassword());
-                
-                $adapter = $authService->getAdapter();
-                $adapter->setIdentityValue($mail);
-                $adapter->setCredentialValue($hashedPassword);
-                
-                $authResult = $authService->authenticate($adapter);
-                if ($authResult->isValid()) {
-                   $this->redirect()->toRoute('category', array(
-                        'controller' => 'category',
-                        'action' =>  'index'
-                    ));
+        $authService = $this->getServiceLocator()->get('authentification_service');
+       
+        if($authService->getIdentity()){
+
+            $module = $this->getEvent()->getRouteMatch()->getParam('controller');
+            var_dump(explode('-',$module)[0]);
+            die();
+            return $this->redirect()->toRoute('category', array(
+                'controller' => 'category',
+                'action' =>  'index'
+            ));
+        } else {
+           
+            $form = new AuthentificationForm();
+            $bcrypt = new Bcrypt();
+            $request = $this->getRequest();
+            if ($request->isPost()) {
+                $data = $this->getRequest()->getPost();
+                $form->setData($request->getPost());
+                if($form->isValid()){    
+                    $mail = $form->get('mail')->getValue();
+                    $password = $form->get('password')->getValue();
+                    
+                    $entityService = $this->getUserService();
+                    $user = $entityService->findOneBy(array('mail'=>$mail));
+                    $hashedPassword = $bcrypt->verify($password,$user->getPassword());
+                    
+                    $adapter = $authService->getAdapter();
+                    $adapter->setIdentityValue($mail);
+                    $adapter->setCredentialValue($hashedPassword);
+                    
+                    $authResult = $authService->authenticate($adapter);
+                    if ($authResult->isValid()) {
+                       $this->redirect()->toRoute('category', array(
+                            'controller' => 'category',
+                            'action' =>  'index'
+                        ));
+                    }
                 }
             }
+            
+            return array('form' => $form);
         }
-        return array('form' => $form);
     }
     
     public function newAction()

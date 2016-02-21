@@ -53,6 +53,7 @@ class Module
                 'address_service' => 'Application\Factory\AddressServiceFactory',
                 'product_service' => 'Application\Factory\ProductServiceFactory',
                 'user_service' => 'Application\Factory\UserServiceFactory',
+                'access_control_service'=>'Application\Factory\AccessControlServiceFactory',
                 'wishlist_service' => 'Application\Factory\Whishlist.php',
             )
         );
