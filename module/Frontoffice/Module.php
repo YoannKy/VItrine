@@ -15,6 +15,7 @@ class Module
         $myService = $serviceManager->get('category_service');
         $viewModel->categories = $myService->findAll();
         $viewModel->authService = $authService;
+                
     }
     
     public function getConfig()

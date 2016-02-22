@@ -11,6 +11,7 @@ namespace Application;
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Log\Listener\LogListener;
 
 class Module
 {
@@ -19,6 +20,9 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        $eventManager = $e->getTarget()->getEventManager();
+        $eventManager->attach(new LogListener());
+        
     }
 
     public function getConfig()
@@ -29,9 +33,11 @@ class Module
 
     public function init(ModuleManager $mm)
     {
-        $mm->getEventManager()->getSharedManager()->attach (__NAMESPACE__ , 'dispatch' , function ($e) {
+        $em =$mm->getEventManager()->getSharedManager();
+        $em->attach (__NAMESPACE__ , 'dispatch' , function ($e) {
             $e->getTarget()->layout ('login/layout');
-        }) ;
+        });
+        
     }
 
 

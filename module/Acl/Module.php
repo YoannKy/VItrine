@@ -9,6 +9,7 @@ class Module {
     public function onBootstrap(MvcEvent $e) {
         $application = $e->getApplication();
         $application->getEventManager()->attachAggregate($application->getServiceManager()->get('AclListener'));
+        
         return $this;
     }
 

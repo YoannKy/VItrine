@@ -28,6 +28,7 @@ class Acl extends AbstractListenerAggregate {
             $e->getRouteMatch()->setParam('controller', 'backoffice-category')
                     ->setParam('action', 'notallowed');
         }
+        
         return $this;
     }
 

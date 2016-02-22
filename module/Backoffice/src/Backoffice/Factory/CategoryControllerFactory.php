@@ -12,8 +12,7 @@ class CategoryControllerFactory implements FactoryInterface
         $entityService = $controllerManager->getServiceLocator()->get('category_service');
 //         $form = $controllerManager->getServiceLocator()->get('category_form');
 
-        $accessControlService = $controllerManager->getServiceLocator()->get('access_control_service');
-        $controller = new CategoryController($entityService/*,$form*/, $accessControlService);
+        $controller = new CategoryController($entityService/*,$form*/);
         
         return $controller;
     }
