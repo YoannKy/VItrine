@@ -6,18 +6,9 @@ use Zend\Permissions\Acl\Acl;
 
 return array(
     'service_manager' => array(
-        'factories' => array(
-            'AclListener' => function($sm) {
-                return new AclListener($sm->get('AclService'), $sm->get('authentification_service'));
-            },
-            'AclService' => function($sm) {
-                $config = $sm->get('config');
-                $service = new AclService(new Acl());
-                if (!empty($config['acl'])) {
-                    $service->setup($config['acl']);
-                }       
-                return $service;
-            }   
+            'factories' => array(
+                'AclListener' =>'Acl\Factory\AclListenerFactory',
+            'AclService' => 'Acl\Factory\AclServiceFactory'
         )
     ),
 );
