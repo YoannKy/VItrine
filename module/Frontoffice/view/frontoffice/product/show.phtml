@@ -4,9 +4,10 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="home">
             <h2>Description du produit</h2>
-            <p><?php echo $this->product->getLongDesc() ?></p>
+            <p><?php echo $this->product->getLongDesc(); ?></p>
         </div>
     </div>
+    <?php if(!$this->hasAlreadyWished):;?>
     <?php   $form = $this->form; ?>
 	<?php $form->setAttribute('action', $this->url('fo-product', array('action' => 'show','id_category'=> $this->id_category, 'id' =>$this->product->getId())));
 	$form->prepare();?>
@@ -17,4 +18,7 @@
      		<button class="btn btn-primary">Ajouter</button>
 		<?php echo $this->form()->closeTag($this->form); ?>
     </div>
+    <?php else:;?>
+    vous avez déjà ajouté ce produit dans votre liste
+    <?php endif;?>
 </div>

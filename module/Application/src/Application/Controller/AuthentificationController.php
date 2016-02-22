@@ -57,9 +57,9 @@ class AuthentificationController extends AbstractActionController
         if($authService->getIdentity()){
 
             $module = $this->getEvent()->getRouteMatch()->getParam('controller');
-           return  $this->redirect()->toRoute('fo-category', array(
-                'controller' => 'category',
-                'action' =>  'index'
+           return  $this->redirect()->toRoute('home', array(
+                'controller' => 'frontoffice-product',
+                'action' =>  'last'
             ));
         } else {
             $form = new AuthentificationForm();

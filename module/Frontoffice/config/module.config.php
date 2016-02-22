@@ -8,6 +8,9 @@ namespace Frontoffice;
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 return array(
+    'guest' => array(
+         'fo-wishlist',
+     ),
     'router' => array(
         'routes' => array(
             'fo-product' => array(
@@ -35,6 +38,19 @@ return array(
                     ),
                     'defaults' => array(
                         'controller' => 'frontoffice-category',
+                        'action' => 'index'
+                    )
+                )
+            ),
+            'fo-wishlist' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/user[/:id_user]/wishlist',
+                    'constraints' => array(
+                        'id_user'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'frontoffice-wishlist',
                         'action' => 'index'
                     )
                 )
@@ -74,6 +90,7 @@ return array(
         'factories' => array(
             'frontoffice-product' => 'Frontoffice\Factory\ProductControllerFactory',
             'frontoffice-category' => 'Frontoffice\Factory\CategoryControllerFactory',
+            'frontoffice-wishlist' => 'Frontoffice\Factory\WishListControllerFactory',
         ),
     ),
 //     'view_helpers' => array(

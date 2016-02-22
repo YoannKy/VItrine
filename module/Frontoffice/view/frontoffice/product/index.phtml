@@ -27,7 +27,7 @@
 			<td><span class="label label-success"><?php echo $product->getPrice();?> €</span></td>
 			<td><?php echo $product->getLongDesc();?></td>
 			<td><?php echo $product->getShortDesc();?></td>
-			<td><a  href="<?php echo $this->url('fo-product', array('action' => 'show','id'=>$product->getId(),'id_category'=>$this->id_category));?>">Voir les produits</a></td>
+			<td><a href="<?php echo $this->url('fo-product', array('action' => 'show','id'=>$product->getId(),'id_category'=>$this->id_category));?>">Voir les détails</a></td>
 		</tr>
 		 <?php endforeach; ?>
 	</tbody>

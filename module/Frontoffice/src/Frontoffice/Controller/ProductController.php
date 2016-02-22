@@ -106,38 +106,31 @@ class ProductController extends AbstractActionController
         $categoryExist =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
         $productExist =$this->checkIfProductExists( $this->params()->fromRoute('id'));
         $form = new WishListForm();
-        $user = new Users();
         if($categoryExist and $productExist) {
             $product = $this->getProductService()->find($this->params()->fromRoute('id'));
-            $form->bind($user);
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $authService = $this->getServiceLocator()->get('authentification_service');
-                if($authService->hasIdentity()){
-                    $entityService =  $this->getUserService();
-                    $user =  $authService->getIdentity();
+            $authService = $this->getServiceLocator()->get('authentification_service');
+            if($authService->hasIdentity()){
+                $user = $authService->getIdentity();
+                $form->bind($user);
+                $hasAlreadyWished = $user->getProducts()->contains($product); 
+                $request = $this->getRequest();
+                if ($request->isPost()) {
                     $form->setData($request->getPost());
-                    if ($form->isValid()) {
+                    if ($form->isValid() && $hasAlreadyWished) {
                         $user->getProducts()->add($product);
-                        $entityService->persist($user);
+                        $user->persist($authService);
+                    } else {
                         return $this->redirect()->toRoute('fo-product', array(
                             'action' => 'show',
                             'id_category' =>  $this->params()->fromRoute('id_category'),
                             'id' =>  $this->params()->fromRoute('id'),
                         ));
                     }
-                } else {
-                    return $this->redirect()->toRoute('fo-product', array(
-                            'action' => 'show',
-                            'id_category' =>  $this->params()->fromRoute('id_category'),
-                            'id' =>  $this->params()->fromRoute('id'),
-                        ));
                 }
             }
-            return array('form' => $form, 'product' => $product,'id_category'=>$this->params()->fromRoute('id_category'));
+            return array('form' => $form, 'product' => $product,'hasAlreadyWished'=>$hasAlreadyWished,'id_category'=>$this->params()->fromRoute('id_category'));
         }
-        return $this->redirect()->toRoute('fo-category', array(
-            'action' => 'index'));
-        
+        return $this->redirect()->toRoute('home', array(
+            'action' => 'last'));
     }
 }

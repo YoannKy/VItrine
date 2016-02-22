@@ -38,6 +38,9 @@
 					<div class="right clearfix">
 						<ul class="nav navbar-nav pull-right right-navbar-nav">
 						<?php if($this->layout()->authService->hasIdentity()):;?>
+						<li>
+							<a href="<?php echo $this->url('fo-wishlist', array('action' => 'index','id_user'=> $this->layout()->authService->getIdentity()->getId()));?>">Liste de souhaits</a>
+						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
 								<span><?php echo $this->layout()->authService->getIdentity()->getName();?></span>

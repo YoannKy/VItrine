@@ -16,7 +16,6 @@ class Module
 {
     
     public function onBootstrap($e) {
-    
         $serviceManager = $e->getApplication()->getServiceManager();
         $viewModel = $e->getApplication()->getMvcEvent()->getViewModel();
         $authService = $serviceManager->get('authentification_service');

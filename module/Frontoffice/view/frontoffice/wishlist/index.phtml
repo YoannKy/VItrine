@@ -1,0 +1,21 @@
+<div class="panel panel-info panel-dark widget-profile">
+	<div class="panel-heading">
+		<div class="widget-profile-bg-icon"><i class="fa fa-twitter"></i></div>
+		<div class="widget-profile-header">
+			<span>Liste de souhaits</span><br><br>
+			<a href="/" class="label label-primary">Retourner à l'accueil</a><br><br>
+	Nombre de produits dans la liste de souhait: <?php echo count($this->products);?>
+		</div>
+	</div> <!-- / .panel-heading -->
+	<?php foreach ($this->products as $product):; ?>
+	<div class="widget-profile-counters">
+		<div class="col-xs-4"><span><?php echo $product->getName();?></span><br>nom du produit</div>
+		<div class="col-xs-4"><span><?php echo $product->getShortDesc();?></span><br>description courte</div>
+		<div class="col-xs-4"><span><?php echo $product->getPrice();?></span><br>prix</div>
+	
+	</div>
+	<div class="widget-profile-text">
+		<?php echo $product->getLongDesc();?>
+	</div>
+	<?php endforeach;?>
+</div>
