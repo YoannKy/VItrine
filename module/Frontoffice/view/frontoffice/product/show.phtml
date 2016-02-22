@@ -7,7 +7,7 @@
             <p><?php echo $this->product->getLongDesc(); ?></p>
         </div>
     </div>
-    <?php if($this->hasAlreadyWished):;?>
+    <?php if(!$this->hasAlreadyWished):;?>
     <?php   $form = $this->form; ?>
 	<?php $form->setAttribute('action', $this->url('fo-product', array('action' => 'show','id_category'=> $this->id_category, 'id' =>$this->product->getId())));
 	$form->prepare();?>

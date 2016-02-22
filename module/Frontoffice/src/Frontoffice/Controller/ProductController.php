@@ -115,10 +115,12 @@ class ProductController extends AbstractActionController
                 $hasAlreadyWished = $user->getProducts()->contains($product); 
                 $request = $this->getRequest();
                 if ($request->isPost()) {
+                    $userEntityManager = $this->getUserService();
                     $form->setData($request->getPost());
-                    if ($form->isValid() && $hasAlreadyWished) {
+                    if ($form->isValid() && !$hasAlreadyWished) {
                         $user->getProducts()->add($product);
-                        $user->persist($user);
+                        $userEntityManager->persist($user);
+                        $hasAlreadyWished =true;
                     } else {
                         return $this->redirect()->toRoute('fo-product', array(
                             'action' => 'show',
