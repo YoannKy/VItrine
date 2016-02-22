@@ -11,7 +11,11 @@ class WishListControllerFactory implements FactoryInterface
     {
         $controller = new WishlistController();
         $authentificationService =  $controllerManager->getServiceLocator()->get('authentification_service');
+        $productService =  $controllerManager->getServiceLocator()->get('product_service');
         $controller->setAuthentificationService($authentificationService);
+        $userService =  $controllerManager->getServiceLocator()->get('user_service');
+        $controller->setUserService($userService);
+        $controller->setProductService($productService);
         return $controller;
     }
 }

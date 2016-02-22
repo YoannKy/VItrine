@@ -12,10 +12,18 @@
 		<div class="col-xs-4"><span><?php echo $product->getName();?></span><br>nom du produit</div>
 		<div class="col-xs-4"><span><?php echo $product->getShortDesc();?></span><br>description courte</div>
 		<div class="col-xs-4"><span><?php echo $product->getPrice();?></span><br>prix</div>
-	
 	</div>
 	<div class="widget-profile-text">
-		<?php echo $product->getLongDesc();?>
+		<?php echo $product->getLongDesc();?><br><br>
+		<?php   $form = $this->form; ?>
+        	<?php $form->setAttribute('action', $this->url('fo-wishlist', array('action' => 'index','id_user'=> $this->layout()->authService->getIdentity()->getId())));
+        	$form->prepare();?>
+        	
+    <?php  echo $this->form()->openTag($this->form)?>
+             Retirer ce produit à ma liste de souhaits	:<br>
+                <?php echo $this->formInput($form->get('product_id')->setValue($product->getId()));?>
+             		<button class="btn btn-primary">Retirer</button>
+            	<?php echo $this->form()->closeTag($this->form); ?>        	
 	</div>
 	<?php endforeach;?>
 </div>

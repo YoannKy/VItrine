@@ -118,7 +118,7 @@ class ProductController extends AbstractActionController
                     $form->setData($request->getPost());
                     if ($form->isValid() && $hasAlreadyWished) {
                         $user->getProducts()->add($product);
-                        $user->persist($authService);
+                        $user->persist($user);
                     } else {
                         return $this->redirect()->toRoute('fo-product', array(
                             'action' => 'show',
@@ -127,6 +127,8 @@ class ProductController extends AbstractActionController
                         ));
                     }
                 }
+            } else {
+                $hasAlreadyWished = false;
             }
             return array('form' => $form, 'product' => $product,'hasAlreadyWished'=>$hasAlreadyWished,'id_category'=>$this->params()->fromRoute('id_category'));
         }
