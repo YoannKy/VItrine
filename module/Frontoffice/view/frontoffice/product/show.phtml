@@ -1,24 +1,62 @@
-<div class="col-sm-offset-4 col-sm-8">
-    <h1><?php echo $this->product->getName() ?></h1>
-    <h2><?php echo $this->product->getPrice() ?> $</h2>
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="home">
-            <h2>Description du produit</h2>
-            <p><?php echo $this->product->getLongDesc(); ?></p>
-        </div>
-    </div>
-    <?php if(!$this->hasAlreadyWished):;?>
-    <?php   $form = $this->form; ?>
-	<?php $form->setAttribute('action', $this->url('fo-product', array('action' => 'show','id_category'=> $this->id_category, 'id' =>$this->product->getId())));
-	$form->prepare();?>
-    <?php  echo $this->form()->openTag($this->form)?>
-    <div class="panel-heading col-sm-4">
-        <span class="panel-title">Ajouter ce produit à ma liste de souhaits	:</span>
-	    <?php echo $this->formInput($this->form->get('product_id'));?>
-     		<button class="btn btn-primary">Ajouter</button>
-		<?php echo $this->form()->closeTag($this->form); ?>
-    </div>
-    <?php else:;?>
-    vous avez déjà ajouté ce produit dans votre liste
-    <?php endif;?>
+<div class="stat-panel">
+	<div class="stat-row">
+		<!-- Success darker background -->
+		<div class="stat-cell bg-success darker">
+			<!-- Stat panel bg icon -->
+			<i class="fa fa-lightbulb-o bg-icon" style="font-size:60px;line-height:80px;height:80px;"></i>
+			<!-- Big text -->
+			<span class="text-bg"><?php echo $this->product->getName(); ?></span><br>
+			<!-- Small text -->
+			<span class="text-sm">Détail du produit</span>
+		</div>
+	</div> <!-- /.stat-row -->
+	<div class="stat-row">
+		<!-- Success background, without bottom border, without padding, horizontally centered text -->
+		<div class="stat-counters bg-success no-border-b no-padding text-center">
+			<!-- Small padding, without horizontal padding -->
+			<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
+				<!-- Big text -->
+				<span class="text-bg"><strong><?php echo $this->product->getPrice(); ?></strong></span><br>
+				<!-- Extra small text -->
+				<span class="text-xs">Prix</span>
+			</div>
+			<!-- Small padding, without horizontal padding -->
+			<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
+				<!-- Big text -->
+				<span class="text-bg"><strong><?php echo $this->product->getLongDesc(); ?></strong></span><br>
+				<!-- Extra small text -->
+				<span class="text-xs">Description longue</span>
+			</div>
+			<!-- Small padding, without horizontal padding -->
+			<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
+				<!-- Big text -->
+				<span class="text-bg"><strong><?php echo $this->product->getShortDesc(); ?></strong></span><br>
+				<!-- Extra small text -->
+				<span class="text-xs">Description courte</span>
+			</div>
+		</div> <!-- /.stat-counters -->
+	</div> <!-- /.stat-row -->
+	<div class="stat-row">
+		<!-- Success background, without bottom border, without padding, horizontally centered text -->
+		<div class="stat-counters bg-success no-border-b no-padding text-center">
+			<!-- Small padding, without horizontal padding -->
+			<div class="stat-cell col-xs-12 padding-sm no-padding-hr">
+				<!-- Big text -->
+				<!-- Extra small text -->
+				    <?php if(!$this->hasAlreadyWished):;?>
+                    <?php   $form = $this->form; ?>
+                	<?php $form->setAttribute('action', $this->url('fo-product', array('action' => 'show','id_category'=> $this->id_category, 'id' =>$this->product->getId())));
+                	$form->prepare();?>
+                    <?php  echo $this->form()->openTag($this->form)?>
+                        <span class="text-bg"><strong>Ajouter ce produit</strong></span><br>
+                				
+                        <?php echo $this->formInput($this->form->get('product_id'));?>
+                     		<button class="btn btn-primary">Ajouter</button>
+                		<?php echo $this->form()->closeTag($this->form); ?>
+                    <?php else:;?>
+                    vous avez déjà ajouté ce produit dans votre liste
+                    <?php endif;?>
+			</div>	
+		</div>
+	</div>
 </div>
