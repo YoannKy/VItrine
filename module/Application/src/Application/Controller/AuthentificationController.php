@@ -13,8 +13,9 @@ use Application\Form\AuthentificationForm;
 use Application\Form\UserForm;
 use Application\Entity\Users as User;
 use Zend\Crypt\Password\Bcrypt;
-
-
+use Zend\Mail;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\InMemory as InMemoryTransport;
 class AuthentificationController extends AbstractActionController
 {
     protected  $authentificationService;
@@ -113,9 +114,31 @@ class AuthentificationController extends AbstractActionController
             $entityService =  $this->getUserService();
             $form->setData($request->getPost());
             if ($form->isValid()) {
+                $message = new \Zend\Mail\Message();
+                $message->setBody('This is the body');
+                $message->setFrom('albert.nguyen.pro14@gmail.com');
+                $message->addTo('albert.nguyen.pro14@gmail.com');
+                $message->setSubject('Test subject');
+
+                $options = new Mail\Transport\SmtpOptions(array(
+                    'name' => 'CRAM-MD5',
+                    'host' => 'CRAM-MD5',
+                    'port' => 2525,
+                    'connection_class' => 'login',
+                    'connection_config' => array(
+                        'username' => '277bf72a5d6029',
+                        'password' => '0ca2cdac081524',
+                        'ssl'=> 'tls',
+                    ),
+                ));
+                $transport = new \Zend\Mail\Transport\Smtp($options);
+                $transport->send($message);
+                die();
                 $user->setPassword($bcrypt->create($user->getPassword()));
                 $user->setStatus('client');
                 $entityService->persist($user);
+
+
                 return $this->redirect()->toRoute('login',array('action'=>'index'));
             }
             
