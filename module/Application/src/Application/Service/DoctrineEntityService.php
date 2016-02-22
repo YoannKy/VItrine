@@ -72,6 +72,20 @@ class DoctrineEntityService implements ServiceManagerAwareInterface,EventManager
 
         return $entity;
     }
+    
+    /**
+     * Persists and Entity into the Repository
+     *
+     * @param Entity $entity
+     * @return Entity
+     */
+    public function remove($entity)
+    {
+        $this->getEventManager()->trigger(__FUNCTION__ . '.pre', $this, array('entity'=>$entity));
+        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
+     
+    }
 
     /**
      * @param \Doctrine\ORM\EntityRepository $entityRepository

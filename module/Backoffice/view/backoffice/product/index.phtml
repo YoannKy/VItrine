@@ -18,6 +18,7 @@
 					<th>description longue</th>
 					<th>description courte</th>
 					<th>Editer</th>
+					<th>Supprimer</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,7 +28,8 @@
 			<td><?php echo $product->getPrice();?></td>
 			<td><?php echo $product->getLongDesc();?></td>
 			<td><?php echo $product->getShortDesc();?></td>
-			<td><a href ="<?php echo $this->url('product', array('action' => 'edit','id_category'=>$this->id_category,'id'=>$product->getId(),))?>">Editer</a></td>
+			<td><a  class="btn btn-warning btn-rounded"  href ="<?php echo $this->url('product', array('action' => 'edit','id_category'=>$this->id_category,'id'=>$product->getId(),))?>">Editer</a></td>
+			<td><a  class="btn btn-danger btn-rounded"  href ="<?php echo $this->url('product', array('action' => 'delete','id_category'=>$this->id_category,'id'=>$product->getId(),))?>">Suprimer</a></td>
 		</tr>
 		 <?php endforeach; ?>
 	</tbody>

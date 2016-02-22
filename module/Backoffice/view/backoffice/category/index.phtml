@@ -15,7 +15,9 @@
 				<tr>
 					<th>Nom du catalogue</th>
 					<th>Produits liés</th>
-					<th>Editer</th>
+					<th>Créer un produit</th>
+					<th>Editer</th>	
+					<th>Supprimer</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,7 +30,9 @@
 			<?php else: ?>
     				<td><a class="btn btn-info btn-rounded" href="<?php echo $this->url('product', array('action' => 'index','id_category'=>$category->getId()));?>">Voir les produits</a></td>
     			<?php endif;?>
+    		<td><a class="btn btn-primary btn-rounded" href="<?php echo $this->url('product', array('action' => 'new','id_category'=> $category->getId()));?>">Créer</a></td>
 			<td><a class="btn btn-warning btn-rounded" href="<?php echo $this->url('category', array('action' => 'edit','id'=> $category->getId()));?>">Edit</a></td>	
+			<td><a class="btn btn-danger btn-rounded" href="<?php echo $this->url('category', array('action' => 'delete','id'=> $category->getId()));?>">Supprimer</a></td>	
 		</tr>
 		 <?php endforeach; ?>
 	</tbody>

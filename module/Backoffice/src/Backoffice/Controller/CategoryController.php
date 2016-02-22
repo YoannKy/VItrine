@@ -114,6 +114,15 @@ class CategoryController extends AbstractActionController
             }
     }
     
+    public function deleteAction(){
+        $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id'));
+        if($category){
+            $this->getCategoryService()->remove($category);
+            // Redirect to list of categories
+            return $this->redirect()->toRoute('category');
+        }          
+    }
+    
     public function notallowedAction(){
         return array();
     }

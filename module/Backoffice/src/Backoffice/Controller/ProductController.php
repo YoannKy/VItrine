@@ -172,6 +172,14 @@ class ProductController extends AbstractActionController
          }      
     }
     
+    public function deleteAction(){
+        $product =$this->checkIfProductExists( $this->params()->fromRoute('id'));
+        if($product){
+            $this->getProductService()->remove($product);
+        }
+        return $this->redirect()->toRoute('category');
+    }
+    
     public function notallowedAction(){
         return array();
     }
