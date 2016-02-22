@@ -21,7 +21,7 @@ echo $this->headLink(array(
         ))
             ->prependStylesheet($this->basePath('css/pages.min.css'))
             ->prependStylesheet($this->basePath('css/themes.min.css'))
-            ->prependStylesheet($this->basePath('css/widget.min.css'))
+            ->prependStylesheet($this->basePath('css/widgets.min.css'))
             ->prependStylesheet($this->basePath('css/pixel-admin.min.css'))
             ->prependStylesheet($this->basePath('css/bootstrap.min.css'))?>
 
@@ -46,8 +46,11 @@ echo $this->headScript()
 <?php echo $this->partial('back_breadcrumb.phtml');?>	
 	<div id="main-menu-bg"></div>
 <?php echo $this->content;?>	
+</div>
 </div> <!-- / #main-wrapper -->
-<script src="/js/theme.js"></script>
+<?php echo $this->headScript()
+            ->prependFile($this->basePath('js/theme.js'));
+        ?>?>
 <script type="text/javascript">
 	window.PixelAdmin.start();
 </script>

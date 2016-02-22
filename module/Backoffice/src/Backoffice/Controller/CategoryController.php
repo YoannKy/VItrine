@@ -11,6 +11,7 @@ namespace Backoffice\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Backoffice\Form\CategoryForm;
 use Application\Entity\Categories as Category;
+use Zend\View\Helper\ViewModel;
 
 
 class CategoryController extends AbstractActionController
@@ -26,11 +27,10 @@ class CategoryController extends AbstractActionController
     
 //     protected $categoryFormService;
      
-    public function __construct($categoryService/*, $categoryFormService*/, $accessControlService)
+    public function __construct($categoryService/*, $categoryFormService*/)
     {
         $this->categoryService = $categoryService;
         
-        $this->accessControlService = $accessControlService;
         //   $this->categoryFormService = $categoryFormService; 
     }
 
@@ -38,22 +38,7 @@ class CategoryController extends AbstractActionController
     {
         return $this->categoryService;
     }
-    
-    public function getAuthentificationService(){
-        return $this->authentificationService;
-    }
-    
-    
-    public function getModuleName(){
-        return  explode("-",$this->getEvent()->getRouteMatch()->getParam('controller'))[0];
-    }
-    
-    
-    public function getAccessControlService()
-    {
-        return $this->accessControlService;
-    }
-    
+        
 //     public function getCategoryFormService(){
 //         return $this->categoryFormService;
 //     }
@@ -76,54 +61,32 @@ class CategoryController extends AbstractActionController
     
     public function indexAction()
     { 
-        $acessControlService = $this->getAccessControlService();
-        $module = $this->getModuleName();
-        if($acessControlService->checkPermission($module)){
-            $categories = $this->getCategoryService()->findAll();            
-            return array( 'categories' => $categories);
-        } else {
-             return $this->redirect()->toRoute('home', array(
-                        'controller' => 'frontoffice-product',
-                        'action' =>  'last'
-                    ));
-        }
-        
+        $categories = $this->getCategoryService()->findAll();            
+        return array( 'categories' => $categories);
     }
     
     public function newAction()
     {
-        $acessControlService = $this->getAccessControlService();
-        $module = $this->getModuleName();
-        if($acessControlService->checkPermission($module)){
-            $form = new CategoryForm();
-            $category = new Category();
-         
-            $form->bind($category); 
-        
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-               $entityService =  $this->getCategoryService();
-               $form->setData($request->getPost());          
-                if ($form->isValid()) {
-                    $entityService->persist($category);
-                    return $this->redirect()->toRoute('category');
-                }
+       $form = new CategoryForm();
+        $category = new Category();
+     
+        $form->bind($category); 
+    
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+           $entityService =  $this->getCategoryService();
+           $form->setData($request->getPost());          
+            if ($form->isValid()) {
+                $entityService->persist($category);
+                return $this->redirect()->toRoute('category');
             }
-            return array('form' => $form);
-        } else {
-           return $this->redirect()->toRoute('home', array(
-                        'controller' => 'frontoffice-product',
-                        'action' =>  'last'
-                    ));
         }
+        return array('form' => $form);
+    
     }
     
     public function editAction()
     {
-        $acessControlService = $this->getAccessControlService();
-        $module = $this->getModuleName();
-        if($acessControlService->checkPermission($module)){
-        
             $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id'));
             if($category){
                 $form  = new CategoryForm();
@@ -149,11 +112,9 @@ class CategoryController extends AbstractActionController
                     'action' => 'new',
                 ));
             }
-        } else {
-           return $this->redirect()->toRoute('home', array(
-                        'controller' => 'frontoffice-product',
-                        'action' =>  'last'
-                    ));
-        }
+    }
+    
+    public function notallowedAction(){
+        return array();
     }
 }

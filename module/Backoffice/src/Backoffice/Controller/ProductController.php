@@ -22,13 +22,11 @@ class ProductController extends AbstractActionController
     
     protected  $categoryService;
     
-    protected $accessControlService;
     
-    public function __construct($productService, $categoryService, $accessControlService)
+    public function __construct($productService, $categoryService)
     {
         $this->productService = $productService;
         $this->categoryService = $categoryService;
-        $this->accessControlService = $accessControlService;
     }
     
     public function setCategoryService($categoryService)
@@ -52,16 +50,6 @@ class ProductController extends AbstractActionController
         return $this->productService;
     }
     
-
-    public function getAccessControlService()
-    {
-        return $this->accessControlService;
-    }
-    
-
-    public function getModuleName(){
-        return  explode("-",$this->getEvent()->getRouteMatch()->getParam('controller'))[0];
-    }
     
     
     protected function checkIfCategoryExists($categoryId){
@@ -96,9 +84,6 @@ class ProductController extends AbstractActionController
     
     public function indexAction()
     {   
-        $acessControlService = $this->getAccessControlService();
-        $module = $this->getModuleName();
-        if($acessControlService->checkPermission($module)){
             $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
             if($category)   {
                 $products = $category->getProducts();
@@ -108,20 +93,11 @@ class ProductController extends AbstractActionController
                     'action' => 'index',
                 ));
             }
-        } else {
-            return $this->redirect()->toRoute('home', array(
-                'controller' => 'frontoffice-product',
-                'action' =>  'last'
-            ));
-        }
     }
     
     public function newAction()
     {
 
-        $acessControlService = $this->getAccessControlService();
-        $module = $this->getModuleName();
-        if($acessControlService->checkPermission($module)){
             $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
             if($category)   {
                 $form = new ProductForm();
@@ -151,19 +127,10 @@ class ProductController extends AbstractActionController
                     'action' => 'index',
                 ));
             }
-        } else {
-            return $this->redirect()->toRoute('home', array(
-                'controller' => 'frontoffice-product',
-                'action' =>  'last'
-            ));
-        }
     }
     
     public function editAction()
     {
-        $acessControlService = $this->getAccessControlService();
-        $module = $this->getModuleName();
-        if($acessControlService->checkPermission($module)){
             $category =$this->checkIfCategoryExists( $this->params()->fromRoute('id_category'));
             $product =$this->checkIfProductExists( $this->params()->fromRoute('id'));
             if($category and $product) {
@@ -201,8 +168,11 @@ class ProductController extends AbstractActionController
                 return $this->redirect()->toRoute('product', array(
                     'action' => 'new',
                 ));
-               }
             }
-        }
+         }      
+    }
+    
+    public function notallowedAction(){
+        return array();
     }
 }
