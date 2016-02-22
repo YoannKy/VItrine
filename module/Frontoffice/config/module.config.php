@@ -90,6 +90,7 @@ return array(
             'layout/front_layout'     => __DIR__ . '/../view/layout/layout.phtml',
             'frontoffice/index/index' => __DIR__ . '/../view/frontoffice/index/index.phtml',
             'error/404' => __DIR__ . '/../view/error/front_404.phtml',
+            'error/front_index' => __DIR__ . '/../view/error/index.phtml'
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view'
